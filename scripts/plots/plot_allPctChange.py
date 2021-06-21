@@ -39,11 +39,11 @@ df_n = pd.read_parquet(f"{INPUT}/asdata_clean.parquet")
 df_n["lf"] = (df_n["capY"]- df_n["sY"]) / df_n["capY"] # adjust to look at coach only
 
 df = df[[
-  "origin", "dest", "flightNum" ,"tdate", "ddate", "fare", "seats", "lf"
+    "origin", "dest", "flightNum" ,"tdate", "ddate", "fare", "seats", "lf"
 ]]
 df_n["seats"] = df_n["sY"] # adjust to look at coach only
 df = df.append(
-  df_n[["origin", "dest", "flightNum", "tdate", "ddate", "fare", "seats", "lf"]]
+    df_n[["origin", "dest", "flightNum", "tdate", "ddate", "fare", "seats", "lf"]]
 )
 
 dfR  = pd.read_csv(f"{INPUT}/airline_routes.csv", sep = "\t", header = None)
@@ -52,13 +52,13 @@ dfR[1] = dfR[1].str.strip()
 dfR[0] = dfR[0].astype("str")
 dfR[1] = dfR[1].astype("str")
 dfR.rename(
-  columns = {
-    0: "origin",
-    1: "dest",
-    2: "year",
-    3: "comp"
-  },
-  inplace = True
+    columns = {
+        0: "origin",
+        1: "dest",
+        2: "year",
+        3: "comp"
+    },
+    inplace = True
 )
 
 df = df.merge(dfR, on = ["origin", "dest"], how = "left")
@@ -97,14 +97,14 @@ counter = 0
 markets = sorted(list(df["route"].unique()))
 for i in range(nrows - 1):
     for j in range(ncols):
-    df1 = df.loc[df.route == markets[counter]]
-    axs[i, j].plot(
-        100 * df1.groupby("ttdate").fare.mean().pct_change(),
-        color = PALETTE[4]
-    ) 
-    axs[i, j].set_ylim((-10, 50))
-    axs[i, j].set_title(markets[counter], fontsize = FONT_SIZE, fontname = FONT)
-    counter += 1
+        df1 = df.loc[df.route == markets[counter]]
+        axs[i, j].plot(
+            100 * df1.groupby("ttdate").fare.mean().pct_change(),
+            color = PALETTE[4]
+        ) 
+        axs[i, j].set_ylim((-10, 50))
+        axs[i, j].set_title(markets[counter], fontsize = FONT_SIZE, fontname = FONT)
+        counter += 1
 
 remain = len(markets) - counter
 for j in range(remain):
@@ -118,7 +118,7 @@ for j in range(remain):
     counter += 1
 
 for ax in axs.flat:
-    ax.set(xlabel="Booking Horizon", ylabel="Fare % Change")
+    ax.set(xlabel = "Booking Horizon", ylabel = "Fare % Change")
     ax.xaxis.get_label().set_fontsize(FONT_SIZE)
     ax.yaxis.get_label().set_fontsize(FONT_SIZE)
     ax.xaxis.get_label().set_fontname(FONT)
@@ -126,7 +126,7 @@ for ax in axs.flat:
 
 numDelete = ncols - remain
 for j in range(numDelete):
-  fig.delaxes(axs[nrows-1][ncols-j-1])
+    fig.delaxes(axs[nrows-1][ncols-j-1])
 
 plt.yticks(fontname = FONT, fontsize = FONT_SIZE) 
 plt.xticks(fontname = FONT, fontsize = FONT_SIZE) 
