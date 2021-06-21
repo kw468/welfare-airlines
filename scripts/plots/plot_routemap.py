@@ -117,5 +117,6 @@ fig.update_layout(
 )
 
 
-fig.write_image("/mnt/data0/bts_airline/resources/routemap.pdf")
+# fig.write_image("/mnt/data0/bts_airline/resources/routemap.pdf")
+fig.write_image("../../output/routemap.pdf")
 fig.close()
