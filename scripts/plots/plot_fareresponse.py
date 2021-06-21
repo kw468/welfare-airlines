@@ -14,7 +14,7 @@ last edit:
     Thurs 10 Feb 2021
 -------------------------------------------------------------------------------
 notes:
-    
+
 --------------------------------------------------------------------------------
 contributors:
     Kevin:
@@ -53,7 +53,7 @@ df_n["lf"] = (df_n["capY"]- df_n["sY"]) / df_n["capY"] # adjust to look at coach
 df = df[["origin", "dest", "flightNum" ,"tdate", "ddate", "fare", "seats", "lf"]]
 df_n["seats"] = df_n["sY"] # adjust to look at coach only
 df = df.append(
-	df_n[["origin", "dest", "flightNum", "tdate", "ddate", "fare", "seats", "lf"]]
+    df_n[["origin", "dest", "flightNum", "tdate", "ddate", "fare", "seats", "lf"]]
 )
 
 dfR = pd.read_csv(f"{INPUT}/airline_routes.csv", sep = "\t", header = None)
@@ -96,112 +96,112 @@ df .loc[df.difS < 0, "seatC"] = 1
 # this function plots the fare response of nonstop bookings on nonstop fares
 # both monopoly and duopoly markets are considered.
 def plotFareResponse(df, comp):
-	if comp:
-		name = "fareresponse_comp.pdf"
-	elif comp == 0:
-		name = "fareresponse.pdf"
-	df1 = df.loc[df["comp"] == comp]
-	df1 = df1.groupby(["ttdate", "seatC"])["difP"].mean().reset_index()
-	df1 = pd.pivot_table(
-		df1, values = "difP", index = ["ttdate"], columns = ["seatC"]
-	)
-	fig = plt.figure(figsize  =FIG_SIZE)
-	plt.plot(
-		AX_RANGE,
-		df1[0],
-		label = "No Sales",
-		color = PALETTE[0],
-		linewidth = LINE_WIDTH,
-		linestyle = "--"
-	)
-	plt.plot(
-		AX_RANGE,
-		df1[1],
-		label = "Positive Sales",
-		color = PALETTE[4],
-		linewidth = LINE_WIDTH,
-		linestyle = "-"
-	)
-	plt.setp(plt.legend().texts, family = FONT, fontsize = FONT_SIZE - 2)
-	plt.xlabel("Booking Horizon",**CSFONT)
-	plt.ylabel("Fare Response ($)",**CSFONT)
-	# adjust vline for dif() in data construction
-	for x in [54, 47, 40]:
-		plt.axvline(
-			x = x,
-			color = PALETTE[2],
-			linewidth = LINE_WIDTH - 1,
-			linestyle = ":"
-		)
-	plt.xticks(fontname = FONT, fontsize = FONT_SIZE)
-	plt.yticks(fontname = FONT, fontsize = FONT_SIZE)
-	plt.axhline(y = 0, color=PALETTE[-1], linewidth = LINE_WIDTH)
-	plt.savefig(
-		f"{OUTPUT}/{name}",
-		bbox_inches = "tight",
-		format = "pdf",
-		dpi = 600)
-	plt.clf()
+    if comp:
+        name = "fareresponse_comp.pdf"
+    elif comp == 0:
+        name = "fareresponse.pdf"
+    df1 = df.loc[df["comp"] == comp]
+    df1 = df1.groupby(["ttdate", "seatC"])["difP"].mean().reset_index()
+    df1 = pd.pivot_table(
+        df1, values = "difP", index = ["ttdate"], columns = ["seatC"]
+    )
+    fig = plt.figure(figsize  =FIG_SIZE)
+    plt.plot(
+        AX_RANGE,
+        df1[0],
+        label = "No Sales",
+        color = PALETTE[0],
+        linewidth = LINE_WIDTH,
+        linestyle = "--"
+    )
+    plt.plot(
+        AX_RANGE,
+        df1[1],
+        label = "Positive Sales",
+        color = PALETTE[4],
+        linewidth = LINE_WIDTH,
+        linestyle = "-"
+    )
+    plt.setp(plt.legend().texts, family = FONT, fontsize = FONT_SIZE - 2)
+    plt.xlabel("Booking Horizon",**CSFONT)
+    plt.ylabel("Fare Response ($)",**CSFONT)
+    # adjust vline for dif() in data construction
+    for x in [54, 47, 40]:
+        plt.axvline(
+            x = x,
+            color = PALETTE[2],
+            linewidth = LINE_WIDTH - 1,
+            linestyle = ":"
+        )
+    plt.xticks(fontname = FONT, fontsize = FONT_SIZE)
+    plt.yticks(fontname = FONT, fontsize = FONT_SIZE)
+    plt.axhline(y = 0, color=PALETTE[-1], linewidth = LINE_WIDTH)
+    plt.savefig(
+        f"{OUTPUT}/{name}",
+        bbox_inches = "tight",
+        format = FIG_FORMAT,
+        dpi = DPI)
+    plt.clf()
 
 # this function plots the fare response of first class bookings on first class fares.
 def plotFareResponseFirst(df_n):
-	# # replace time until departure variable from -60, 0 to 0, 60
-	df_n["ttdate"] = -df_n["tdate"] + 60
-	df_n["seats"] = df_n.sF
-	cols = ["origin", "dest", "ddate", "flightNum", "tdate"]
-	df["ddate"] = df_n["ddate"].astype("category").cat.codes
-	df_n = df_n.sort_values(cols, ascending = False).reset_index(drop = True)
+    # # replace time until departure variable from -60, 0 to 0, 60
+    df_n["ttdate"] = -df_n["tdate"] + 60
+    df_n["seats"] = df_n.sF
+    cols = ["origin", "dest", "ddate", "flightNum", "tdate"]
+    df["ddate"] = df_n["ddate"].astype("category").cat.codes
+    df_n = df_n.sort_values(cols, ascending = False).reset_index(drop = True)
 
-	cols = ["origin", "dest", "flightNum", "ddate"]
-	df_n["difS"] = df_n.groupby(cols)["seats"].shift(-1) - df_n["seats"]
-	df_n["difP"] = df_n.groupby(cols).firstFare.shift(-1) - df_n.firstFare
-	df_n = df_n.loc[df_n.difS.notnull()]
-	df_n["seatC"] 			= 0
-	df_n.loc[df_n.difS < 0, "seatC"] = 1
+    cols = ["origin", "dest", "flightNum", "ddate"]
+    df_n["difS"] = df_n.groupby(cols)["seats"].shift(-1) - df_n["seats"]
+    df_n["difP"] = df_n.groupby(cols).firstFare.shift(-1) - df_n.firstFare
+    df_n = df_n.loc[df_n.difS.notnull()]
+    df_n["seatC"] 			= 0
+    df_n.loc[df_n.difS < 0, "seatC"] = 1
 
-	df2 = df_n.copy()
-	df2 = df2.groupby(["ttdate", "seatC"])["difP"].mean().reset_index()
-	df2 = pd.pivot_table(
-		df2, values = ["difP"], index = ["ttdate"], columns = ["seatC"]
-	)
-	
-	fig = plt.figure(figsize = FIG_SIZE)
-	plt.plot(
-		AX_RANGE,
-		df2["difP"][0],
-		label = "No Sales",
-		color = PALETTE[0],
-		linewidth = LINE_WIDTH,
-		linestyle="--"
-	)
-	plt.plot(
-		AX_RANGE,
-		df2["difP"][1],
-		label = "Positive Sales",
-		color = PALETTE[4],
-		linewidth = LINE_WIDTH,
-		linestyle = "-")
-	plt.setp(plt.legend().texts, family = FONT, fontsize = FONT_SIZE - 2)
-	plt.xlabel("Booking Horizon", **CSFONT)
-	plt.ylabel("Fare Response ($)", **CSFONT)
-	# adjust vline for dif() in data construction
-	for x in [54, 47, 40]:
-		plt.axvline(
-			x = x,
-			color = PALETTE[2],
-			linewidth = LINE_WIDTH - 1,
-			linestyle = ":"
-		)
-	plt.yticks(fontname = FONT, fontsize = FONT_SIZE) 
-	plt.xticks(fontname = FONT, fontsize = FONT_SIZE) 
-	plt.axhline(y = 0, color = PALETTE[-1], linewidth = LINE_WIDTH)
-	plt.savefig(
-		f"{OUTPUT}/fareresponse_firstC.pdf",
-		bbox_inches = "tight",
-		format = "pdf",
-		dpi = 600
-	)
-	plt.close()
+    df2 = df_n.copy()
+    df2 = df2.groupby(["ttdate", "seatC"])["difP"].mean().reset_index()
+    df2 = pd.pivot_table(
+        df2, values = ["difP"], index = ["ttdate"], columns = ["seatC"]
+    )
+
+    fig = plt.figure(figsize = FIG_SIZE)
+    plt.plot(
+        AX_RANGE,
+        df2["difP"][0],
+        label = "No Sales",
+        color = PALETTE[0],
+        linewidth = LINE_WIDTH,
+        linestyle="--"
+    )
+    plt.plot(
+        AX_RANGE,
+        df2["difP"][1],
+        label = "Positive Sales",
+        color = PALETTE[4],
+        linewidth = LINE_WIDTH,
+        linestyle = "-")
+    plt.setp(plt.legend().texts, family = FONT, fontsize = FONT_SIZE - 2)
+    plt.xlabel("Booking Horizon", **CSFONT)
+    plt.ylabel("Fare Response ($)", **CSFONT)
+    # adjust vline for dif() in data construction
+    for x in [54, 47, 40]:
+        plt.axvline(
+            x = x,
+            color = PALETTE[2],
+            linewidth = LINE_WIDTH - 1,
+            linestyle = ":"
+        )
+    plt.yticks(fontname = FONT, fontsize = FONT_SIZE)
+    plt.xticks(fontname = FONT, fontsize = FONT_SIZE)
+    plt.axhline(y = 0, color = PALETTE[-1], linewidth = LINE_WIDTH)
+    plt.savefig(
+        f"{OUTPUT}/fareresponse_firstC.pdf",
+        bbox_inches = "tight",
+        format = FIG_FORMAT,
+        dpi = DPI
+    )
+    plt.close()
 
 plotFareResponse(df, 0)
 plotFareResponse(df, 1)

@@ -7,12 +7,12 @@ change log:
  v0.0.1 Mon 14 Jun 2021
 -------------------------------------------------------------------------------
 notes:
- 
+
 --------------------------------------------------------------------------------
 contributors:
- Kevin:
- name: Kevin Williams
- email: kevin.williams@yale.edu
+    Kevin:
+        name:       Kevin Williams
+        email:      kevin.williams@yale.edu
 --------------------------------------------------------------------------------
 Copyright 2021 Yale University
 """
@@ -41,7 +41,7 @@ df_n["lf"] = (df_n["capY"]- df_n["sY"]) / df_n["capY"] # adjust to look at coach
 df = df[["origin", "dest", "flightNum" ,"tdate", "ddate", "fare", "seats", "lf"]]
 df_n["seats"] = df_n["sY"] # adjust to look at coach only
 df = df.append(
-	df_n[["origin", "dest", "flightNum", "tdate", "ddate", "fare", "seats", "lf"]]
+    df_n[["origin", "dest", "flightNum", "tdate", "ddate", "fare", "seats", "lf"]]
 )
 
 dfR = pd.read_csv(f"{INPUT}/airline_routes.csv", sep = "\t", header = None)
@@ -78,76 +78,97 @@ df.loc[df.difP < 0, "fareC"] = 2
 # CREATE THE PLOT
 # -------------------------------------------------------------------------------
 def plotFareChange(df, comp):
-	df1 = df.loc[df["comp"] == comp]
-	df1 = df1.groupby(["ttdate", "fareC"])["fare"].count().reset_index()
-	df1 = pd.pivot_table(
-		df1, values = "fare", index = ["ttdate"], columns = ["fareC"]
-	)
-	df1["total"] = df1[0] + df1[1] + df1[2]
-	df1[0] = df1[0] / df1["total"]
-	df1[1] = df1[1] / df1["total"]
-	df1[2] = df1[2] / df1["total"]
+    df1 = df.loc[df["comp"] == comp]
+    df1 = df1.groupby(["ttdate", "fareC"])["fare"].count().reset_index()
+    df1 = pd.pivot_table(
+        df1, values = "fare", index = ["ttdate"], columns = ["fareC"]
+    )
+    df1["total"] = df1[0] + df1[1] + df1[2]
+    df1[0] = df1[0] / df1["total"]
+    df1[1] = df1[1] / df1["total"]
+    df1[2] = df1[2] / df1["total"]
 
-	df2 = df.loc[df["comp"] == comp].copy().groupby(["ttdate", "fareC"])["difP"].mean().reset_index()
-	df2 = pd.pivot_table(
-		df2, values = "difP", index = ["ttdate"], columns = ["fareC"])
-	# NOW PLOT THE RESULTS
-	if comp:
-		name = "lffarechange_comp"
-	elif comp == 0:
-		name = "lffarechange"
-	#
-	fig = plt.figure(figsize = FIG_SIZE)
-	plt.plot(AX_RANGE, 100*df1[2].values, label="Fare Declines",color=PALETTE[0],linewidth = LINE_WIDTH, linestyle="--")
-	plt.plot(AX_RANGE, 100*df1[1], label="Fare Increases",color=PALETTE[4],linewidth = LINE_WIDTH,linestyle="-")
-	L 	= plt.legend()
-	plt.setp(L.texts, family="Liberation Serif", fontsize = 18)
-	plt.xlabel("Booking Horizon",**CSFONT)
-	plt.ylabel("Frequency (%)",**CSFONT)
-	plt.axvline(x=54,color = PALETTE[2],linewidth = 2,linestyle=":")
-	plt.axvline(x=47,color = PALETTE[2],linewidth = 2,linestyle=":")
-	plt.axvline(x=40,color = PALETTE[2],linewidth = 2,linestyle=":")
-	plt.yticks(fontname = "Liberation Serif", fontsize = 20) 
-	plt.xticks(fontname = "Liberation Serif", fontsize = 20) 
-	plt.savefig(OUTPUT + name + "0.pdf",bbox_inches="tight",format= "pdf",dpi=600)
-	plt.close()
-	#
-	fig = plt.figure(figsize  =FIG_SIZE)
-	plt.plot(
-		AX_RANGE,
-		df2[2],
-		label = "Fare Declines",
-		color = PALETTE[0],
-		linewidth = LINE_WIDTH,
-		linestyle="--"
-	)
-	plt.plot(
-		AX_RANGE,
-		df2[1],
-		label = "Fare Increases",
-		color = PALETTE[4],
-		linewidth = LINE_WIDTH,
-		linestyle="-"
-	)
-	plt.setp(plt.legend().texts, family = FONT, fontsize = FONT_SIZE - 2)
-	plt.xlabel("Booking Horizon", **CSFONT)
-	plt.ylabel("Magnitude ($)", **CSFONT)
-	for x in [54, 47, 40]:
-		plt.axvline(
-			x = x,
-			color = PALETTE[2],
-			linewidth = LINE_WIDTH - 1,
-			linestyle = ":"
-		)
-	plt.yticks(fontname = FONT, fontsize = FONT_SIZE) 
-	plt.xticks(fontname = FONT, fontsize = FONT_SIZE) 
-	plt.savefig(
-		f"{OUTPUT}/{name}1.pdf",
-		bbox_inches = "tight",
-		format = "pdf",
-		dpi = 600
-	)
-	plt.close()
+    df2 = df.loc[df["comp"] == comp].copy().groupby(["ttdate", "fareC"])["difP"].mean().reset_index()
+    df2 = pd.pivot_table(
+        df2, values = "difP", index = ["ttdate"], columns = ["fareC"])
+    # NOW PLOT THE RESULTS
+    if comp:
+        name = "lffarechange_comp"
+    elif comp == 0:
+        name = "lffarechange"
+    fig = plt.figure(figsize = FIG_SIZE)
+    plt.plot(
+        AX_RANGE,
+        100 * df1[2].values,
+        label = "Fare Declines",
+        color = PALETTE[0],
+        linewidth = LINE_WIDTH,
+        linestyle = "--"
+    )
+    plt.plot(
+        AX_RANGE,
+        100 * df1[1],
+        label = "Fare Increases",
+        color = PALETTE[4],
+        linewidth = LINE_WIDTH,
+        linestyle = "-"
+    )
+    plt.setp(plt.legend().texts, family = FONT, fontsize = FONT_SIZE)
+    plt.xlabel("Booking Horizon", **CSFONT)
+    plt.ylabel("Frequency (%)", **CSFONT)
+    for x in [54, 47, 40]:
+        plt.axvline(
+            x = x,
+            color = PALETTE[2],
+            linewidth = LINE_WIDTH - 1,
+            linestyle = ":"
+        )
+    plt.yticks(fontname = FONT, fontsize = FONT_SIZE)
+    plt.xticks(fontname = FONT, fontsize = FONT_SIZE)
+    plt.savefig(
+        f"{OUTPUT}/{name}0.pdf",
+        bbox_inches = "tight",
+        format = FIG_FORMAT,
+        dpi = DPI
+    )
+    plt.close()
+    #
+    fig = plt.figure(figsize = FIG_SIZE)
+    plt.plot(
+        AX_RANGE,
+        df2[2],
+        label = "Fare Declines",
+        color = PALETTE[0],
+        linewidth = LINE_WIDTH,
+        linestyle = "--"
+    )
+    plt.plot(
+        AX_RANGE,
+        df2[1],
+        label = "Fare Increases",
+        color = PALETTE[4],
+        linewidth = LINE_WIDTH,
+        linestyle = "-"
+    )
+    plt.setp(plt.legend().texts, family = FONT, fontsize = FONT_SIZE - 2)
+    plt.xlabel("Booking Horizon", **CSFONT)
+    plt.ylabel("Magnitude ($)", **CSFONT)
+    for x in [54, 47, 40]:
+        plt.axvline(
+            x = x,
+            color = PALETTE[2],
+            linewidth = LINE_WIDTH - 1,
+            linestyle = ":"
+        )
+    plt.yticks(fontname = FONT, fontsize = FONT_SIZE)
+    plt.xticks(fontname = FONT, fontsize = FONT_SIZE)
+    plt.savefig(
+        f"{OUTPUT}/{name}1.pdf",
+        bbox_inches = "tight",
+        format = FIG_FORMAT,
+        dpi = DPI
+    )
+    plt.close()
 
 #run the program
 plotFareChange(df,1)

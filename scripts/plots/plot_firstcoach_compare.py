@@ -1,12 +1,12 @@
 """
-    This script plots average fares across fare classes in 
+    This script plots average fares across fare classes in
     "The Welfare Effects of Dynamic Pricing:Evidence from Airline Markets"
 --------------------------------------------------------------------------------
 change log:
     v0.0.1  Mon 14 Jun 2021
 -------------------------------------------------------------------------------
 notes:
-    
+
 --------------------------------------------------------------------------------
 contributors:
     Kevin:
@@ -95,13 +95,13 @@ ffor x in [53, 46, 39]:
         linewidth = LINE_WIDTH - 1,
         linestyle = ":"
     )
-plt.yticks(fontname = FONT, fontsize = FONT_SIZE) 
-plt.xticks(fontname = FONT, fontsize = FONT_SIZE) 
+plt.yticks(fontname = FONT, fontsize = FONT_SIZE)
+plt.xticks(fontname = FONT, fontsize = FONT_SIZE)
 
 plt.savefig(
     f"{OUTPUT}/fyfares.pdf",
     bbox_inches = "tight",
-    format= "pdf",
-    dpi = 600
+    format = FIG_FORMAT,
+    dpi = DPI
 )
 plt.close()

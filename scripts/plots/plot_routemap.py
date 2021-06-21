@@ -1,5 +1,5 @@
 """
-    This script creates the route map in 
+    This script creates the route map in
     "The Welfare Effects of Dynamic Pricing:Evidence from Airline Markets"
 --------------------------------------------------------------------------------
 change log:
@@ -7,7 +7,7 @@ change log:
 -------------------------------------------------------------------------------
 notes: This code must be run on Honu using
             conda activate py_ocr
-    
+
 --------------------------------------------------------------------------------
 contributors:
     Kevin:

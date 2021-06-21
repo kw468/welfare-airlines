@@ -7,7 +7,7 @@ change log:
     v0.0.1  Mon 14 Jun 2021
 -------------------------------------------------------------------------------
 notes:
-    
+
 --------------------------------------------------------------------------------
 contributors:
     Kevin:
@@ -65,7 +65,7 @@ df.loc[df["difS"] < 0, "seatC"] = 1
 df2 = df.copy()
 df2 = df2.groupby(["ttdate", "seatC"])["difP"].mean().reset_index()
 df2 = pd.pivot_table(
-	df2, values = ["difP"], index = ["ttdate"], columns = ["seatC"]
+    df2, values = ["difP"], index = ["ttdate"], columns = ["seatC"]
 )
 
 # -------------------------------------------------------------------------------
@@ -73,42 +73,42 @@ df2 = pd.pivot_table(
 # -------------------------------------------------------------------------------
 
 def plotFareResponse(df2):
-	fig = plt.figure(figsize = FIG_SIZE)
-	plt.plot(
-		AX_RANGE,
-		df2["difP"][0].values,
-		label = "No Sales",
-		color = PALETTE[0],
-		linewidth = LINE_WIDTH,
-		linestyle = "--")
-	plt.plot(
-		AX_RANGE,
-		df2["difP"][1].values,
-		label = "Positive Sales",
-		color = PALETTE[4],
-		linewidth = LINE_WIDTH,
-		linestyle = "-"
-	)
-	plt.setp(plt.legend().texts, family = FONT, fontsize = FONT_SIZE - 2)
-	plt.xlabel("Booking Horizon", **CSFONT)
-	plt.ylabel("Fare Response ($)", **CSFONT)
-	# adjust vlines by 1 because of dif() in data creation
-	for x in [40, 47, 54]:
-		plt.axvline(
-			x = x,
-			color = PALETTE[2],
-			linewidth = LINE_WIDTH - 1,
-			linestyle = ":"
-		)
-	plt.yticks(fontname = FONT, fontsize = FONT_SIZE) 
-	plt.xticks(fontname = FONT, fontsize = FONT_SIZE) 
-	plt.axhline(y = 0, color=PALETTE[-1], linewidth = LINE_WIDTH)
-	plt.savefig(
-		f"{OUTPUT}/fareresponse_1stop.pdf",
-		bbox_inches = "tight",
-		format = "pdf",
-		dpi=600
-	)
-	plt.clf()
+    fig = plt.figure(figsize = FIG_SIZE)
+    plt.plot(
+        AX_RANGE,
+        df2["difP"][0].values,
+        label = "No Sales",
+        color = PALETTE[0],
+        linewidth = LINE_WIDTH,
+        linestyle = "--")
+    plt.plot(
+        AX_RANGE,
+        df2["difP"][1].values,
+        label = "Positive Sales",
+        color = PALETTE[4],
+        linewidth = LINE_WIDTH,
+        linestyle = "-"
+    )
+    plt.setp(plt.legend().texts, family = FONT, fontsize = FONT_SIZE - 2)
+    plt.xlabel("Booking Horizon", **CSFONT)
+    plt.ylabel("Fare Response ($)", **CSFONT)
+    # adjust vlines by 1 because of dif() in data creation
+    for x in [40, 47, 54]:
+        plt.axvline(
+            x = x,
+            color = PALETTE[2],
+            linewidth = LINE_WIDTH - 1,
+            linestyle = ":"
+        )
+    plt.yticks(fontname = FONT, fontsize = FONT_SIZE)
+    plt.xticks(fontname = FONT, fontsize = FONT_SIZE)
+    plt.axhline(y = 0, color=PALETTE[-1], linewidth = LINE_WIDTH)
+    plt.savefig(
+        f"{OUTPUT}/fareresponse_1stop.pdf",
+        bbox_inches = "tight",
+        format = FIG_FORMAT,
+        dpi = DPI
+    )
+    plt.clf()
 
 plotFareResponse(df2)

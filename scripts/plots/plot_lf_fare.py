@@ -5,8 +5,8 @@
 change log:
     v0.0.1  Mon 14 Jun 2021
 -------------------------------------------------------------------------------
-notes: 
-    
+notes:
+
 --------------------------------------------------------------------------------
 contributors:
     Kevin:
@@ -69,7 +69,7 @@ meanfare = df.groupby(["ttdate"])["fare"].mean()
 
 # -------------------------------------------------------------------------------
 # CREATE PLOT
-# ------------------------------------------------------------------------------- 
+# -------------------------------------------------------------------------------
 fig , ax1 = plt.subplots(figsize = FIG_SIZE)
 ax2 = ax1.twinx()
 ax1.plot(
@@ -109,13 +109,13 @@ for x in [53, 46, 39]:
         linewidth = LINE_WIDTH - 1,
         linestyle = ":"
     )
-plt.xticks(fontname = FONT, fontsize = FONT_SIZE) 
+plt.xticks(fontname = FONT, fontsize = FONT_SIZE)
 ax1.tick_params(axis = "both", which = "major", labelsize = FONT_SIZE)
 ax2.tick_params(axis = "both", which = "major", labelsize = FONT_SIZE)
 
 plt.savefig(
     f"{OUTPUT}/lf_fare_overT.pdf",
     bbox_inches = "tight",
-    format = "pdf",
-    dpi = 600)
+    format = FIG_FORMAT,
+    dpi = DPI)
 plt.close()
