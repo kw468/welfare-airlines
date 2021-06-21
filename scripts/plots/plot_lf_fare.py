@@ -33,14 +33,14 @@ AX_RANGE = range(0, 61)
 # READ DATA
 # -------------------------------------------------------------------------------
 
-df = pd.read_parquet(f"{INPUT}/efdata_clean.parquet"})
+df = pd.read_parquet(f"{INPUT}/efdata_clean.parquet")
 df_n = pd.read_parquet(f"{INPUT}/asdata_clean.parquet")
 
  # adjust to look at coach only
 df_n["lf"] = (df_n["capY"]- df_n["sY"]) / df_n["capY"]
 
 df = df[["origin", "dest", "flightNum" ,"tdate", "ddate", "fare", "seats", "lf"]]
-df_n["seats"] = df_n[sY] # adjust to look at coach only
+df_n["seats"] = df_n["sY"] # adjust to look at coach only
 df = df.append(
     df_n[["origin", "dest", "flightNum", "tdate", "ddate", "fare", "seats", "lf"]]
 )

@@ -17,16 +17,12 @@ contributors:
 Copyright 2021 Yale University
 """
 
-# -------------------------------------------------------------------------------
-# IMPORT REQUIRED PACKAGES
-# -------------------------------------------------------------------------------
-
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import statsmodels.formula.api as sm
-import plot_setup
+from plot_setup import * # improt constants
 
 
 # paths to read/write data
@@ -61,7 +57,7 @@ dfR[0] = dfR[0].str.strip()
 dfR[1] = dfR[1].str.strip()
 dfR[0] = dfR[0].astype("str")
 dfR[1] = dfR[1].astype("str")
-ddfR.rename(
+dfR.rename(
     columns = {
         0: "origin",
         1: "dest",
@@ -132,6 +128,6 @@ plt.savefig(
     f"{OUTPUT}/dif_fare_dif_lf.pdf",
     bbox_inches = "tight",
     format = FIG_FORMAT,
-    dpi = 600
+    dpi = DPI
 )
 plt.close()

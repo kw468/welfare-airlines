@@ -135,6 +135,6 @@ plt.savefig(
     f"{OUTPUT}/avg_fare_pct_change_allRoutes.pdf",
     bbox_inches = "tight",
     format = FIG_FORMAT,
-    dpi = FIG_DPI
+    dpi = DPI
 )
 plt.close()

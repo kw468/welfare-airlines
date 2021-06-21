@@ -54,11 +54,11 @@ df["seats"] = df["sY"] + df["sF"]
 df.loc[df.capY == 76, "seats"] = df["sY"]
 
 cols = ["origin", "dest", "flightNum", "ddate"]
-df["difS"] = df.groupby(cols)["seats"]shift(-1) - df["seats"]
-df["difP"] = df.groupby(cols)["fare"]shift(-1) - df["fare"]
+df["difS"] = df.groupby(cols)["seats"].shift(-1) - df["seats"]
+df["difP"] = df.groupby(cols)["fare"].shift(-1) - df["fare"]
 
 
-df 	= df.loc[df["difS"]notnull()]
+df = df.loc[df["difS"].notnull()]
 df["seatC"] = 0
 df.loc[df["difS"] < 0, "seatC"] = 1
 

@@ -18,7 +18,7 @@ Copyright 2021 Yale University
 """
 
 import pandas as pd
-import plot_dfly.graph_objects as go
+import plotly.graph_objects as go
 
 # paths to read/write data
 INPUT = "../../data"
@@ -29,7 +29,7 @@ OUTPUT = "../../output"
 # -------------------------------------------------------------------------------
 
 # this file contains the ODs studied in the paper
-dfR = pd.read_csv(f"{INPUT}/airline_jmp_routes.csv", sep = "\t", header = None)
+dfR = pd.read_csv(f"{INPUT}/airline_routes.csv", sep = "\t", header = None)
 dfR[0] = dfR[0].str.strip()
 dfR[1] = dfR[1].str.strip()
 dfR[0] = dfR[0].astype("str")
@@ -123,4 +123,3 @@ fig.update_layout(
 )
 
 fig.write_image(f"{OUTPUT}/routemap.pdf")
-fig.close()

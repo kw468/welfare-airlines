@@ -15,6 +15,7 @@ contributors:
 --------------------------------------------------------------------------------
 Copyright 2021 Yale University
 """
+
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -88,7 +89,7 @@ plt.plot(
 plt.setp(plt.legend().texts, family = FONT, fontsize = FONT_SIZE - 2)
 plt.xlabel("Booking Horizon", **CSFONT)
 plt.ylabel("Average Fare", **CSFONT)
-ffor x in [53, 46, 39]:
+for x in [53, 46, 39]:
     plt.axvline(
         x = x,
         color = PALETTE[2],

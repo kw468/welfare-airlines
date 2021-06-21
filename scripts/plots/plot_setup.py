@@ -1,3 +1,21 @@
+"""
+    This script stores the common parameters used in creating figures for
+    "The Welfare Effects of Dynamic Pricing:Evidence from Airline Markets"
+--------------------------------------------------------------------------------
+change log:
+    v0.0.1  Mon 14 Jun 2021
+-------------------------------------------------------------------------------
+notes: 
+
+--------------------------------------------------------------------------------
+contributors:
+    Kevin:
+        name:       Kevin Williams
+        email:      kevin.williams@yale.edu
+--------------------------------------------------------------------------------
+Copyright 2021 Yale University
+"""
+
 import matplotlib.pyplot as plt
 import seaborn as sns
 
