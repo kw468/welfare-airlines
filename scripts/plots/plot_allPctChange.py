@@ -17,12 +17,6 @@ contributors:
 Copyright 2021 Yale University
 """
 
-
-
-# -------------------------------------------------------------------------------
-# IMPORT REQUIRED PACKAGES
-# -------------------------------------------------------------------------------
-
 import numpy as np
 import csv
 import pandas as pd

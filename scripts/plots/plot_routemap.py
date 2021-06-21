@@ -35,14 +35,23 @@ dfR[1] = dfR[1].str.strip()
 dfR[0] = dfR[0].astype("str")
 dfR[1] = dfR[1].astype("str")
 dfR.rename(
-    columns = {0 : "origin", 1 : "dest", 2 : "year", 3 : "comp"},
+    columns = {
+        0: "origin",
+        1: "dest",
+        2: "year",
+        3: "comp"
+    },
     inplace = True
 )
 
 # this file contains the lats and lons of airports
-airports = pd.read_csv(f"{INPUT}/airports.dat", header=None)
+airports = pd.read_csv(f"{INPUT}/airports.dat", header = None)
 airports.rename(
-    columns = {4 : "origin", 6 : "lat", 7 : "lon"},
+    columns = {
+        4: "origin",
+        6: "lat",
+        7: "lon"
+    },
     inplace = True
 )
 
@@ -60,8 +69,8 @@ df_flight_paths["od"] = df_flight_paths[["od", "do"]].min(axis = 1)
 df_flight_paths = df_flight_paths.drop_duplicates("od")
 df_flight_paths = df_flight_paths.reset_index(drop = True)
 
-df_flight_paths1 = df_flight_paths.loc[df_flight_paths.comp == 0].reset_index(drop=True)
-df_flight_paths2 = df_flight_paths.loc[df_flight_paths.comp == 1].reset_index(drop=True)
+df_flight_paths1 = df_flight_paths.loc[df_flight_paths.comp == 0].reset_index(drop = True)
+df_flight_paths2 = df_flight_paths.loc[df_flight_paths.comp == 1].reset_index(drop = True)
 
 # -------------------------------------------------------------------------------
 # CREATE THE FIGURE
