@@ -69,12 +69,7 @@ dfR.rename(
     },
     inplace = True
 )
-
 df = df.merge(dfR, on = ["origin", "dest"], how = "left")
-
-# -------------------------------------------------------------------------------
-# CREATE PLOT
-# -------------------------------------------------------------------------------
 
 # replace time until departure variable from -60,0 to 0,60
 df["ttdate"] = -df["tdate"] + 60
@@ -82,7 +77,9 @@ df["ttdate"] = -df["tdate"] + 60
 loadfactor = 100 * df.groupby(["ttdate"])["lf"].mean()
 meanfare = df.groupby(["ttdate"])["fare"].mean()
 
-# NOW PLOT THE RESULTS
+# -------------------------------------------------------------------------------
+# CREATE PLOT
+# ------------------------------------------------------------------------------- 
 fig , ax1 = plt.subplots(figsize = FIG_SIZE)
 ax2 = ax1.twinx()
 ax1.plot(
@@ -100,7 +97,7 @@ ax2.plot(
     linewidth = LINE_WIDTH,
     linestyle = "-")
 
- # set ylim for fare axis
+# set ylim for fare axis
 ax1.set_ylim(np.min(meanfare) - 25, np.max(meanfare) + 25)
 ax2.set_ylim(30,100) # adjust lf ylim
 ax1.set_xlabel("Booking Horizon", **csfont)
