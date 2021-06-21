@@ -19,7 +19,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-import plot_setup
+from plot_setup import * # improt constants
 
 # paths to read/write data
 INPUT = "../../data"
@@ -56,7 +56,7 @@ plt.plot(
     label = "Saver Economy",
     color = PALETTE[0],
     linewidth = LINE_WIDTH,
-    linestyle=":"
+    linestyle = ":"
 )
 plt.plot(
     mainFare,
@@ -81,7 +81,7 @@ plt.plot(
 plt.plot(
     refundFFare,
     label = "Unrestricted First Class",
-    color=PALETTE[4],
+    color = PALETTE[4],
     linewidth = LINE_WIDTH,
     linestyle = "-."
 )

@@ -9,5 +9,5 @@ LINE_WIDTH = 3
 sns.set(style = "white", color_codes = False)
 plt.rcParams["font.family"] = FONT
 FIG_SIZE = (1.5 * 6.4, 1.1 * 4.8)
-FIG_DPI = 600
+DPI = 600
 FIG_FORMAT = "PDF"

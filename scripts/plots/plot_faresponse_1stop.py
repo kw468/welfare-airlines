@@ -21,7 +21,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-import plot_setup
+from plot_setup import * # improt constants
 
 # paths to read/write data
 INPUT = "../../data"
@@ -36,7 +36,7 @@ AX_RANGE = range(0, 60)
 
 df1 = pd.read_parquet(f"{INPUT}/asdata_cleanCon.parquet")
 df1 = df1.groupby(["origin", "dest", "sdate", "ddate"]).fare.mean()
-df1 = df1.reset_index(drop=False)
+df1 = df1.reset_index(drop = False)
 
 df = pd.read_parquet(f"{INPUT}/asdata_clean.parquet")
 df = df.drop(columns = "fare")
@@ -102,7 +102,7 @@ def plotFareResponse(df2):
         )
     plt.yticks(fontname = FONT, fontsize = FONT_SIZE)
     plt.xticks(fontname = FONT, fontsize = FONT_SIZE)
-    plt.axhline(y = 0, color=PALETTE[-1], linewidth = LINE_WIDTH)
+    plt.axhline(y = 0, color = PALETTE[-1], linewidth = LINE_WIDTH)
     plt.savefig(
         f"{OUTPUT}/fareresponse_1stop.pdf",
         bbox_inches = "tight",

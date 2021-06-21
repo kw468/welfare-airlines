@@ -20,7 +20,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-import plot_setup
+from plot_setup import * # improt constants
 
 
 # paths to read/write data
@@ -80,7 +80,7 @@ plt.plot(
     label = "Economy Class",
     color = PALETTE[1],
     linewidth = LINE_WIDTH,
-    linestyle="-."
+    linestyle = "-."
 )
 plt.plot(
     AX_RANGE,

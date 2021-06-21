@@ -23,7 +23,7 @@ import pandas as pd
 import sys
 import matplotlib.pyplot as plt
 import seaborn as sns
-import plot_setup
+from plot_setup import * # improt constants
 
 # paths to read/write data
 INPUT = "../../data"
@@ -90,7 +90,7 @@ df["route"] = df[["origin", "dest"]].min(axis = 1) + \
 ncols = 4
 nrows = int(np.ceil(df["route"].nunique() / ncols))
 fig, axs = plt.subplots(
-    nrows, ncols, figsize=(ncols * FIG_SIZE[0], nrows * FIG_SIZE[1])
+    nrows, ncols, figsize = (ncols * FIG_SIZE[0], nrows * FIG_SIZE[1])
 )
 fig.subplots_adjust(hspace = .4)
 counter = 0

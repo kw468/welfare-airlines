@@ -28,7 +28,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-import plot_setup
+from plot_setup import * # improt constants
 
 # -------------------------------------------------------------------------------
 # DEFINE PATHS
@@ -105,7 +105,7 @@ def plotFareResponse(df, comp):
     df1 = pd.pivot_table(
         df1, values = "difP", index = ["ttdate"], columns = ["seatC"]
     )
-    fig = plt.figure(figsize  =FIG_SIZE)
+    fig = plt.figure(figsize = FIG_SIZE)
     plt.plot(
         AX_RANGE,
         df1[0],
@@ -135,7 +135,7 @@ def plotFareResponse(df, comp):
         )
     plt.xticks(fontname = FONT, fontsize = FONT_SIZE)
     plt.yticks(fontname = FONT, fontsize = FONT_SIZE)
-    plt.axhline(y = 0, color=PALETTE[-1], linewidth = LINE_WIDTH)
+    plt.axhline(y = 0, color = PALETTE[-1], linewidth = LINE_WIDTH)
     plt.savefig(
         f"{OUTPUT}/{name}",
         bbox_inches = "tight",
@@ -172,7 +172,7 @@ def plotFareResponseFirst(df_n):
         label = "No Sales",
         color = PALETTE[0],
         linewidth = LINE_WIDTH,
-        linestyle="--"
+        linestyle = "--"
     )
     plt.plot(
         AX_RANGE,

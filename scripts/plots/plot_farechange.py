@@ -20,7 +20,7 @@ Copyright 2021 Yale University
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-import plot_setup
+from plot_setup import * # improt constants
 
 # paths to read/write data
 INPUT = "../../data"
