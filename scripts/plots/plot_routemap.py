@@ -29,7 +29,8 @@ import plotly.graph_objects as go
 # -------------------------------------------------------------------------------
 
 # this file contains the ODs studied in the paper
-dfR                     = pd.read_csv("/mnt/data0/bts_airline/airline_jmp_routes.csv", sep="\t", header=None)
+# dfR                     = pd.read_csv("/mnt/data0/bts_airline/airline_jmp_routes.csv", sep="\t", header=None)
+dfR                     = pd.read_csv("../../data/airline_jmp_routes.csv", sep="\t", header=None)
 dfR[0]                  = dfR[0].str.strip()
 dfR[1]                  = dfR[1].str.strip()
 dfR[0]                  = dfR[0].astype("str")
@@ -37,7 +38,8 @@ dfR[1]                  = dfR[1].astype("str")
 dfR                     .rename(columns = {0 : "origin", 1 : "dest", 2 : "year", 3 : "comp"}, inplace=True )
 
 # this file contains the lats and lons of airports
-airports                = pd.read_csv("/mnt/data0/bts_airline/resources/airports.dat", header=None)
+# airports                = pd.read_csv("/mnt/data0/bts_airline/resources/airports.dat", header=None)
+airports                = pd.read_csv("../../data/airports.dat", header=None)
 airports                .rename(columns = {4 : "origin", 6 : "lat", 7 : "lon"}, inplace=True )
 
 plot                    = dfR.merge(airports[["origin", "lat", "lon"]], on = "origin", how="left")
