@@ -1,13 +1,13 @@
 """
   This script plots the percentage fare in changes over time for each
-  market separately in 
+  market separately in
   "The Welfare Effects of Dynamic Pricing:Evidence from Airline Markets"
 --------------------------------------------------------------------------------
 change log:
   v0.0.1  Mon 14 Jun 2021
 -------------------------------------------------------------------------------
 notes:
-  
+
 --------------------------------------------------------------------------------
 contributors:
   Kevin:
@@ -46,7 +46,7 @@ df = df.append(
     df_n[["origin", "dest", "flightNum", "tdate", "ddate", "fare", "seats", "lf"]]
 )
 
-dfR  = pd.read_csv(f"{INPUT}/airline_routes.csv", sep = "\t", header = None)
+dfR = pd.read_csv(f"{INPUT}/airline_routes.csv", sep = "\t", header = None)
 dfR[0] = dfR[0].str.strip()
 dfR[1] = dfR[1].str.strip()
 dfR[0] = dfR[0].astype("str")
@@ -63,7 +63,7 @@ dfR.rename(
 
 df = df.merge(dfR, on = ["origin", "dest"], how = "left")
 
-# replace time until departure variable from -60,0 to 0,60
+# replace time until departure variable from -60, 0 to 0, 60
 df["ttdate"] = -df["tdate"] + 60
 
 cols = ["origin", "dest", "ddate", "flightNum", "tdate"]
@@ -72,8 +72,8 @@ df["ddate"] = df["ddate"].astype("category").cat.codes
 df = df.sort_values(cols, ascending = False).reset_index(drop = True)
 
 cols = ["origin", "dest", "flightNum", "ddate"]
-df["difS"] 	= df.groupby(cols).seats.shift(-1) - df.seats
-df["difP"] 	= df.groupby(cols).fare.shift(-1) - df.fare
+df["difS"] = df.groupby(cols).seats.shift(-1) - df.seats
+df["difP"] = df.groupby(cols).fare.shift(-1) - df.fare
 
 
 df = df.loc[df.difS.notnull()]
@@ -81,7 +81,7 @@ df["seatC"] = 0
 df .loc[df.difS < 0, "seatC"] = 1
 
 df["route"] = df[["origin", "dest"]].min(axis = 1) + \
-    df[["origin", "dest"]].max(axis = 1) 
+    df[["origin", "dest"]].max(axis = 1)
 
 # -------------------------------------------------------------------------------
 # CREATE PLOT GRID AND PLOT THE RESULTS
@@ -101,7 +101,7 @@ for i in range(nrows - 1):
         axs[i, j].plot(
             100 * df1.groupby("ttdate").fare.mean().pct_change(),
             color = PALETTE[4]
-        ) 
+        )
         axs[i, j].set_ylim((-10, 50))
         axs[i, j].set_title(markets[counter], fontsize = FONT_SIZE, fontname = FONT)
         counter += 1
@@ -128,8 +128,8 @@ numDelete = ncols - remain
 for j in range(numDelete):
     fig.delaxes(axs[nrows-1][ncols-j-1])
 
-plt.yticks(fontname = FONT, fontsize = FONT_SIZE) 
-plt.xticks(fontname = FONT, fontsize = FONT_SIZE) 
+plt.yticks(fontname = FONT, fontsize = FONT_SIZE)
+plt.xticks(fontname = FONT, fontsize = FONT_SIZE)
 
 plt.savefig(
     f"{OUTPUT}/avg_fare_pct_change_allRoutes.pdf",
