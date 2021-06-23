@@ -91,8 +91,8 @@ gen result = booked + blocked
 gen capsm = avail + occ
 gen blocked_from_sm = cap - capsm
 
-gen dif1 = booked - occ //naive seat map numbers
-gen dif2 = result - occ - blocked_from_sm //taking into account blocked seat maps
+gen dif1 = booked - occ // naive seat map numbers
+gen dif2 = result - occ - blocked_from_sm // taking into account blocked seat maps
 
 gen pc1 = dif1 / cap // calculate pct dif 1
 gen pc2 = dif2 / cap // calculate pct dif 2
