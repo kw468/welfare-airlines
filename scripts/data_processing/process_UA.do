@@ -47,7 +47,7 @@ tempfile nums
 save `nums'
 
 * OPEN THE MAIN DATA - SEAT MAP NUMBERS
-insheet using "$INPUT/SM_result.txt", clear
+insheet using "${INPUT}/SM_result.txt", clear
 
 * RENAME VARS
 rename v1 ddate_y
@@ -108,4 +108,4 @@ drop if pc1 == .
 drop if pc2 == .
 
 * EXPORT DATA
-export delimited itin ttdate pc2 pc1 occ cap using "$OUTPUT/united_data.csv", replace
+export delimited itin ttdate pc2 pc1 occ cap using "${OUTPUT}/united_data.csv", replace
