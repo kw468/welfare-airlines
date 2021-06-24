@@ -1,7 +1,7 @@
 """
-    Thi script match monthly enplanements using my seat maps aggregated on
+    Thi script matches monthly enplanements using my seat maps aggregated on
     the day of departure with actual monthly enplanements reported in the T100
-    Segment tables with assumptions describe in the paper.
+    Segment tables with assumptions described in the paper.
 --------------------------------------------------------------------------------
 change log:
     v0.0.1  Mon 14 Jun 2021
