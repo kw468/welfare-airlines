@@ -28,7 +28,7 @@ global OUTPUT = "../../output"
 log using "${OUTPUT}subReg.log", replace
 
 * OPEN THE MASTER FILE
-insheet using "${INPUT}/subregs.csv"		
+insheet using "${INPUT}/subregs.csv"
 
 egen MY = group(year ddmonth)
 

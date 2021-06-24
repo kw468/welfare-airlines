@@ -23,6 +23,7 @@ import subprocess
 import os
 
 INPUT = OUTPUT = "../../data"
+
 # so that AB, BA both become A-B
 def determine_OD_Pair(D, O):
     return "_".join(sorted([D, O]))
@@ -32,10 +33,10 @@ df_n = pd.read_parquet(f"{INPUT}/asdata_clean.parquet")
 
 df_n["lf"] = (df_n.capY- df_n.sY) / df_n.capY # adjust to look at coach only
 
-common_cols = ["origin", "dest", "flightNum", "tdate", "ddate", "fare", "seats", "lf"]
-df = df[common_cols]
+main_cols = ["origin", "dest", "flightNum", "tdate", "ddate", "fare", "seats", "lf"]
+df = df[main_cols]
 df_n["seats"] = df_n.sY # adjust to look at coach only
-df = df.append(df_n[common_cols])
+df = df.append(df_n[main_cols])
 
 dfR = pd.read_csv(f"{INPUT}/airline_routes.csv", sep = "\t", header = None)
 dfR[0] = dfR[0].str.strip()

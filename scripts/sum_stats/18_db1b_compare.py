@@ -42,13 +42,13 @@ def gatherAirports(f):
 
 def gatherPaxNums(f):
     qtr = pd.read_csv(f, usecols = ["origin", "paxx"])
-    return qtr.groupby("origin").paxx.sum().reset_index(drop = False)  
+    return qtr.groupby("origin").paxx.sum().reset_index(drop = False)
 
 def haversine_np(lon1, lat1, lon2, lat2):
     """
     Calculate the great circle distance between two points
     on the earth (specified in decimal degrees)
-    All args must be of equal length.    
+    All args must be of equal length.
     """
     lon1, lat1, lon2, lat2 = map(np.radians, [lon1, lat1, lon2, lat2])
     dlon = lon2 - lon1
@@ -65,14 +65,14 @@ def airportListNums(files):
         results = p.map(gatherAirports, files)
         p.join()
     df = pd.concat(results)
-    
+
     # run in parallel
     with Pool as p:
         results = p.map(gatherPaxNums, files)
         p.join()
-    
+
     nums = pd.concat(results).groupby("origin").paxx.sum().reset_index(drop = False)
-    
+
     db1b_airports = df[["origin"]].drop_duplicates()
     db1b_airports = db1b_airports.rename(columns = {"origin" : "airport"})
     return db1b_airports, nums
@@ -82,23 +82,23 @@ def determineClosebyAirports(files):
     db1b_airports,nums = airportListNums(files)
     df = pd.read_csv(f"{INPUT}/airports.dat", header = None)
     df["ones"] = 1
-    
+
     cross = df[[6, 7, 4, "ones"]]
     cross = cross.loc[df[4] != "\\N"]
     cross = cross.rename(columns = {6 : "lat", 7 : "lon", 4 : "airport"})
     cross = cross.merge(db1b_airports, on = "airport", how = "right")
-    
+
     cross = cross.loc[cross.lat.notnull()]
-    
+
     cross = cross.merge(cross, on = "ones", how = "outer")
     cross = cross.loc[cross["lat_x"] != cross["lat_y"]]
-    
+
     cross["distance"] = haversine_np(
         cross["lon_x"], cross["lat_x"], cross["lon_y"], cross["lat_y"]
     )
-    
+
     cross = cross.loc[cross.distance < 60]
-    
+
     # search over all closeby airports
     X = list(cross.airport_x.unique())
     Y = []
@@ -127,9 +127,9 @@ def determineClosebyAirports(files):
                 if z.difference(y) != set([]):
                     print(x)
         Y.append(list(y))
-    
+
     name = []
-    res = list(set(tuple(sorted(sub)) for sub in Y)) 
+    res = list(set(tuple(sorted(sub)) for sub in Y))
     for r in res:
         paxT = nums.loc[nums.origin.isin(r)]
         name.extend([paxT.loc[paxT.paxx.idxmax()]["origin"]])
@@ -139,7 +139,7 @@ def sumSegmentPath(df):
     ##### NOW AGG PAX TOTALS
     # nonstop only
     df1 = df.loc[df.connect1.isnull()][["origin", "dest", "paxx", "quarter", "year"]]
-    # now 1 connection 
+    # now 1 connection
     df1 = df1.append(
         df.loc[(df.connect1.notnull()) & (df.connect2.isnull())][["origin", "connect1", "paxx", "quarter", "year"]].rename(columns = {"connect1" : "dest"})
     )
@@ -247,7 +247,7 @@ result["monthly"] = result.totalPax / 3
 nsCarrier = df.loc[df.connect1.isnull()]
 # half a 50 seater plane, at least 8 times a month (weekend only), and there are 3 months
 nsCarrier = nsCarrier.merge(
-    totalPax.loc[totalPax.paxx > .5 * 50 * 8 * 3][cols], 
+    totalPax.loc[totalPax.paxx > .5 * 50 * 8 * 3][cols],
     on = cols,
     how = "inner"
 )
@@ -575,9 +575,9 @@ TBL1 = TBL1.merge(tbl_fares, on = ["origin", "dest"], how = "inner")
 TBL1[["directPax", "connectPax", "totalPax", "fare"]] = \
     TBL1[["directPax", "connectPax", "totalPax", "fare"]].astype("int")
 TBL1["route"] = TBL1[["origin", "dest"]].min(axis = 1) + \
-    TBL1[["origin", "dest"]].max(axis = 1) 
+    TBL1[["origin", "dest"]].max(axis = 1)
 TBL1 = TBL1.sort_values(["route", "origin"]).reset_index(drop = False)
-TBL11 = TBL1.copy().drop_duplicates("route", keep="last") 
+TBL11 = TBL1.copy().drop_duplicates("route", keep="last")
 TBL11.rename(columns = {"origin" : "d"}, inplace = True)
 TBL11.rename(columns = {"dest" : "origin"}, inplace = True)
 TBL11.rename(columns = {"d" : "dest"}, inplace = True)
@@ -591,7 +591,7 @@ tbl_fares1 = df.loc[(df.connect1.notnull()) & (df.connect2.isnull())] \
     .merge(dfR, on = ["origin", "dest", "year"], how = "inner")
 tbl_fares1.loc[tbl_fares1.year == 2012, "fare"] = tbl_fares1.fare * 1.12
 tbl_fares1["route"] = tbl_fares1[["origin", "dest"]].min(axis = 1) + \
-    tbl_fares1[["origin", "dest"]].max(axis = 1) 
+    tbl_fares1[["origin", "dest"]].max(axis = 1)
 tbl_fares1["fare"] = tbl_fares1.fare*tbl_fares1.paxx
 tbl_fares1["tpax"] = tbl_fares1.groupby(["route"]).paxx.transform("sum")
 tbl_fares1["fare"] = tbl_fares1["fare"] / tbl_fares1["tpax"]

@@ -22,7 +22,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from scipy import stats
 
-pathIn = "../../data"
+INPUT = "../../data"
 
 # -------------------------------------------------------------------------------
 # IMPORT DATA
@@ -35,7 +35,10 @@ df_n = pd.read_parquet(f"{INPUT}/asdata_clean.parquet")
 
 df_n["lf"] = (df_n.capY- df_n.sY) / df_n.capY # adjust to look at coach only
 
-main_columns = ["origin", "dest", "flightNum", "tdate", "ddate", "fare", "seats", "lf", "capacity"]
+main_columns = [
+    "origin", "dest", "flightNum", "tdate",
+    "ddate", "fare", "seats", "lf", "capacity"
+]
 df = df[main_columns]
 df_n["seats"] = df_n.sY # adjust to look at coach only
 df_n["capacity"] = df_n.capY # add capacity
@@ -50,7 +53,10 @@ dfR[0] = dfR[0].str.strip()
 dfR[1] = dfR[1].str.strip()
 dfR[0] = dfR[0].astype("str")
 dfR[1] = dfR[1].astype("str")
-dfR.rename(columns = {0 : "origin", 1 : "dest", 2 : "year", 3 : "comp"}, inplace = True)
+dfR.rename(
+    columns = {0 : "origin", 1 : "dest", 2 : "year", 3 : "comp"},
+    inplace = True
+)
 
 df = df.merge(dfR, on = ["origin", "dest"], how = "left")
 
@@ -124,7 +130,7 @@ changeSM
 # 42      2
 # 8       1
 # Name: tdate, dtype: int64
-# >>> 
+# >>>
 
 changeSM.reset_index(drop = False).loc[changeSM.index <= 2].sum().tdate / changeSM.sum()
 #0.7863013698630137

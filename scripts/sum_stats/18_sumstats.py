@@ -7,7 +7,7 @@ change log:
     v0.0.1  Mon 14 Jun 2021
 -------------------------------------------------------------------------------
 notes:
-    
+
 --------------------------------------------------------------------------------
 contributors:
     Kevin:
@@ -152,13 +152,13 @@ def meanSummaryStats(df,df1,df2):
     d = [df.difP.mean(), df.difP.std(), df.difP.median(), df.difP.quantile(.05), df.difP.quantile(.95)]
     e = [df.difS.mean(), df.difS.std(), df.difS.median(), df.difS.quantile(.05), df.difS.quantile(.95)]
     g = [df2.fare.mean(), df2.fare.std(), df2.fare.median(), df2.fare.quantile(.05), df2.fare.quantile(.95)]
-    
+
     p1 = "Oneway Fare (\$)" + " ".join(["&" + str("{0:.2f}".format(f)) for f in a]) +  "\\\\[.5ex]"
     p2 = "Load Factor" + " ".join(["&" + str("{0:.2f}".format(f)) for f in b]) +  "\\\\[.5ex]"
     p3 = "Booking Rate" + " ".join(["&" + str("{0:.2f}".format(f)) for f in e]) +  "\\\\[.5ex]"
     p4 = "Daily Fare Change (\$)" + " ".join(["&" + str("{0:.2f}".format(f)) for f in d]) +  "\\\\[.5ex]"
     p5 = "Unique Fares (per itin.)" + " ".join(["&" + str("{0:.2f}".format(f)) for f in g]) +  "\\\\[.5ex]"
-    
+
     with open(f"{OUTPUT}/summaryStatsTable.txt", "w") as f:
         f.writelines([line + "\n" for line in [p1,p2,p3,p4,p5]])
 
@@ -175,28 +175,28 @@ df2.groupby("year")[["fare"]].mean()
 # >>> df["year"] = pd.to_datetime(df.ddate, format = "%Y-%m-%d").dt.year
 # >>> df.groupby("year")[["fare", "difP", "difS"]].mean()
 #             fare      difP      difS
-# year                                
+# year
 # 2012  364.483868  3.588136  0.851086
 # 2019  193.185241  3.376421  0.625303
 # >>> df1["year"] = pd.to_datetime(df1.ddate, format = "%Y-%m-%d").dt.year
 # >>> df1.groupby("year")[["lf"]].mean()
 #             lf
-# year          
+# year
 # 2012  0.945527
 # 2019  0.870363
 # >>> df2["year"] = pd.to_datetime(df2.ddate, format = "%Y-%m-%d").dt.year
 # >>> df2.groupby("year")[["fare"]].mean()
 #           fare
-# year          
+# year
 # 2012  7.387294
 # 2019  6.847316
-# >>> 
-# >>> 
+# >>>
+# >>>
 
 df1["f"] = df1[["origin", "dest"]].min(axis=1) # first OD pair
 df1["s"] = df1[["origin", "dest"]].max(axis=1) # second OD pair
 df1.groupby(["f", "s"]).lf.std() / df1.groupby(["f", "s"]).lf.mean()
-# f    s  
+# f    s
 # AUS  BOS    0.063373
 # BIL  SEA    0.098930
 # BOI  PDX    0.192106
@@ -238,7 +238,7 @@ res.summary()
 # >>> res.summary()
 # <class "statsmodels.iolib.summary.Summary">
 # # """
-#                             OLS Regression Results                            
+#                             OLS Regression Results
 # ==============================================================================
 # Dep. Variable:                     lf   R-squared:                       0.555
 # Model:                            OLS   Adj. R-squared:                  0.538
@@ -247,15 +247,15 @@ res.summary()
 # Time:                        11:20:35   Log-Likelihood:                 11961.
 # No. Observations:               12114   AIC:                        -2.305e+04
 # Df Residuals:                   11676   BIC:                        -1.980e+04
-# Df Model:                         437                                         
-# Covariance Type:            nonrobust                                         
+# Df Model:                         437
+# Covariance Type:            nonrobust
 
 df2 = df.loc[df.tdate == 59]
 df2["f"] = df2[["origin", "dest"]].min(axis=1) #first OD pair
 df2["s"] = df2[["origin", "dest"]].max(axis=1) #second OD pair
 df2.groupby(["f", "s"]).lf.std() / df2.groupby(["f", "s"]).lf.mean()
 
-# f    s  
+# f    s
 # AUS  BOS    0.175498
 # BIL  SEA    0.283387
 # BOI  PDX    0.360681
