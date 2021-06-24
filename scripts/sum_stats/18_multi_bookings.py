@@ -24,7 +24,7 @@ import re
 import numpy as np
 import multiprocessing as mp
 
-INTPUT = OUTPUT = "../../data"
+INPUT = OUTPUT = "../../data"
 
 NUM_PROCESSES = 24
 
@@ -84,7 +84,7 @@ def determineSeatAvail(d):
 # PROCESS THE DATA
 # -------------------------------------------------------------------------------
 
-files = glob.glob(f"{INTPUT}/*/alaskaair/*.json")
+files = glob.glob(f"{INPUT}/*/alaskaair/*.json")
 with mp.Pool(NUM_PROCESSES) as p:
     df = p.map(processASFile, files)
     df = pd.concat(df)
