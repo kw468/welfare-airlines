@@ -1,24 +1,38 @@
-clear
 
-/* 	This script estimates the dynamic substitution regressions that appear in 
-	Williams (2021)
-	Edited by: Kevin Williams
-	Edit date:6/15/2021
+
+/*
+    This script estimates the dynamic substitution regressions that appear in
+    "The Welfare Effects of Dynamic Pricing:Evidence from Airline Markets".
+--------------------------------------------------------------------------------
+change log:
+    v0.0.1  Mon 14 Jun 2021
+-------------------------------------------------------------------------------
+notes:
+    `stata` must be an executable.
+    You might need to add a symbolic links for `stata` to work.
+--------------------------------------------------------------------------------
+contributors:
+    Kevin:
+        name:   Kevin Williams
+        email:  kevin.williams@yale.edu
+--------------------------------------------------------------------------------
+Copyright 2021 Yale University
 */
 
+clear
+
 * SET THE PATHS
-global pathIn = "/home/kw468/Projects/airlines_jmp/output/"
+global INPUT = "../../data"
+global OUTPUT = "../../output"
 
-global regTable = "${pathIn}subReg.tex"
-
-log using "${pathIn}subReg.log", replace
+log using "${OUTPUT}subReg.log", replace
 
 * OPEN THE MASTER FILE
-insheet using "$pathIn/subregs.csv"		
+insheet using "${INPUT}/subregs.csv"		
 
 egen MY = group(year ddmonth)
 
-replace lf = lf*100
+replace lf = lf * 100
 
 
 orthpoly ttdate, deg(6) gen(_t*)
@@ -33,7 +47,8 @@ eststo m2
 reghdfe lf _t* apd*, absorb(route MY dowd dows flightnum) cluster(route MY)
 eststo m3
 
-esttab m1 m2 m3 using $regTable, drop(_cons) indicate("time = _t*")  se r2 label replace
+esttab m1 m2 m3 using "${OUTPUT}subReg.tex", ///
+	drop(_cons) indicate("time = _t*") se r2 label replace
 
 log close
 
