@@ -33,7 +33,7 @@ import re
 import numpy as np
 import multiprocessing as mp
 
-INPUT = OUTPUT = "../data"
+INPUT = OUTPUT = "../../data"
 
 NUM_PROCESSES = 24
 

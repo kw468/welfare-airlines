@@ -27,7 +27,7 @@ Copyright 2021 Yale University
 import pandas as pd
 import numpy as np
 
-INPUT = OUTPUT = "../data"
+INPUT = OUTPUT = "../../data"
 
 # --------------------------------------------------------------------------------
 # Define function definitions
