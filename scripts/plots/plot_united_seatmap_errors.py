@@ -54,8 +54,7 @@ meanerror.plot(
     label = "Estimated Measurement Error"
 )
 plt.plot(range(61), 100 * ffit(range(61)), lw = LINE_WIDTH, color = PALETTE[1])
-L = plt.legend()
-plt.setp(L.texts, family=FONT, fontsize = FONT_SIZE - 2)
+plt.setp(plt.legend().texts, family=FONT, fontsize = FONT_SIZE - 2)
 plt.xlabel("Booking Horizon", **CSFONT)
 plt.ylabel("Percentage (0%-100%)", **CSFONT)
 plt.yticks(fontname = FONT, fontsize = FONT_SIZE)
