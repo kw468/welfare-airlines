@@ -25,11 +25,6 @@ contributors:
 Copyright 2021 Yale University
 """
 
-
-# --------------------------------------------------------------------------------
-# Import Required Packages 
-# --------------------------------------------------------------------------------
-
 import glob
 import pandas as pd 
 import json
@@ -38,14 +33,7 @@ import re
 import numpy as np
 import multiprocessing as mp
 
-
-# --------------------------------------------------------------------------------
-# Set path for data and logs
-# --------------------------------------------------------------------------------
-
-path        =   "/mnt/data2/airlines_2019/"
-pathMain    =   "/mnt/data2/airlines_2019/flight_parsers/DATA/"
-pathIn      =   pathMain + "data/"
+INPUT = OUTPUT = "../data"
 
 NUM_PROCESSES = 24
 
@@ -168,7 +156,7 @@ def determineSeatCount(d):
 
 # Glob all files and process them, output data frame
 def processASData():
-    files = glob.glob(pathMain + "*/alaskaair/*.json")
+    files = glob.glob(f"{pathMain}/*/alaskaair/*.json")
     
     with mp.Pool(NUM_PROCESSES) as p:
         df = p.map(processASFile, files)
@@ -220,7 +208,7 @@ def processBCDFile(fname):
 
 # Process BCD bucket file; dictionary buckets and fill in bucket availability
 def processBuckets():
-    files = glob.glob(pathMain + "*/bcdtraval/*.json")
+    files = glob.glob(f"{pathMain}/*/bcdtraval/*.json")
     with mp.Pool(NUM_PROCESSES) as p:
         df = p.map(processBCDFile,files)
         df = [y for x in df for y in x]
@@ -261,13 +249,13 @@ def processBuckets():
 bdf = processBuckets()
 df = processASData()
 
-df.to_parquet(path + "as_raw.parquet")
-bdf.to_parquet(path + "bcd_raw.parquet")
+df.to_parquet(f"{path}/as_raw.parquet")
+bdf.to_parquet(f"{path}/bcd_raw.parquet")
 
-df = pd.read_parquet(path + "as_raw.parquet")
+df = pd.read_parquet(f"{path}/as_raw.parquet")
 df.shape
 # (4814609, 17)
-bdf = pd.read_parquet(path + "bcd_raw.parquet")
+bdf = pd.read_parquet(f"{path}/bcd_raw.parquet")
 bdf.shape
 # (894621, 34)
 
@@ -475,5 +463,5 @@ df = df[[
     "fn","carrier", "capY", "capF", "sY", "sF", "lf"
 ]]
 
-df.to_parquet(path + "asdata_clean_final.parquet")
-dfC.to_parquet(path + "asdata_cleanCon_final.parquet")
+df.to_parquet(f"{path}/asdata_clean_final.parquet")
+dfC.to_parquet(f"{path}/asdata_cleanCon_final.parquet")
