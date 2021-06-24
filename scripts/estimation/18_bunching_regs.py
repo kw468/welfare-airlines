@@ -75,8 +75,7 @@ df["APD21"] = 1 * (df.tdate == 21)
 
 df.to_csv(f"{OUTPUT}/subregs.csv")
 
-dofile = f"{OUTPUT}/bunching_subRegressions.do"
-cmd = ["stata", "-b", "do", dofile, "&"]
+cmd = ["stata", "-b", "do", "bunching_subRegressions.do", "&"]
 subprocess.call(cmd)
 
 os.remove(f"{OUTPUT}/subregs.csv")
