@@ -35,7 +35,7 @@ NUM_PROCESSES = 24
 def processASFile(fname):
     #print(fname)
     with open(fname) as json_data:
-        data = json.load(json_data,)
+        data = json.load(json_data)
     # process the json file
     X = pd.DataFrame()
     for d in data:
