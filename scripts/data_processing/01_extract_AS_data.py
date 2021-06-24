@@ -437,14 +437,12 @@ fcols = [
 ] #"fare"
 df[fcols] = df.groupby(cols, as_index = False)[fcols].apply(lambda group: group.ffill())
 
-
 print("nonstop shape")
 print(df.loc[df.nonstop == 1].shape)
 # (798808, 54)
 
 dfC = df.loc[df.nonstop == 0].reset_index(drop = True)
 dfC["fare"] = dfC[dfC.columns[dfC.columns.to_series().str.contains("Fare")]].min(axis = 1)
-
 
 df = df.loc[df.capY.notnull()]
 df = df.loc[~((df.capY == 76) & (df.capF == 12))].reset_index(drop=True)
@@ -462,17 +460,13 @@ df["fare"] = df[df.columns[df.columns.to_series().str.contains("Fare")]].min(axi
 df.loc[df.fare.isnull(), "sY"] = 0
 df.loc[df.fare.isnull(), "sF"] = 0
 
-
-
 df["lf"] = (df.capY + df.capF - df.sY - df.sF)/(df.capY+df.capF)
 df .loc[df.capY == 76, "lf"] = (df.capY- df.sY)/df.capY
-
 
 cols = ["origin", "dest", "ddate", "flightNum"]
 df["ones"] = 1
 df["numObs"] = df.groupby(cols)["ones"].transform("sum")
 df = df.loc[df.numObs >= 59].reset_index(drop=True)
-
 
 df = df[[
     "flightNum", "ddate", "sdate", "capacity1", "seats1", "capacity2",
