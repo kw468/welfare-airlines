@@ -61,13 +61,13 @@ def haversine_np(lon1, lat1, lon2, lat2):
 
 def airportListNums(files):
     # run in parallel
-    with Pool as p:
+    with Pool() as p:
         results = p.map(gatherAirports, files)
         p.join()
     df = pd.concat(results)
 
     # run in parallel
-    with Pool as p:
+    with Pool() as p:
         results = p.map(gatherPaxNums, files)
         p.join()
 
