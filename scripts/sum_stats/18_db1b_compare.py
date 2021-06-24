@@ -1,6 +1,6 @@
 """
-    This script creates figures, tables and numbers related to DB1B apppeared in
-    "The Welfare Effects of Dynamic Pricing:Evidence from Airline Markets"
+    This script creates figures, tables and numbers related to DB1B that apppear
+    in "The Welfare Effects of Dynamic Pricing:Evidence from Airline Markets"
 --------------------------------------------------------------------------------
 change log:
     v0.0.1  Mon 14 Jun 2021
