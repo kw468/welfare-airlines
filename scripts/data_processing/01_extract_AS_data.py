@@ -363,7 +363,7 @@ dfIndex.shape
 
 tmp = dfIndex.loc[dfIndex["ind"].notnull() == True].groupby(cols) \
     .tdate.min().reset_index(drop = False)
-tmp.rename(columns = {"tdate" : "minT"}, inplace=True)
+tmp.rename(columns = {"tdate" : "minT"}, inplace = True)
 dfIndex = dfIndex.merge(tmp, on = cols, how = "left")
 
 # do not trim the data at the upper bound -- the last time we see the flightffi
@@ -427,7 +427,7 @@ df["idx"] = df.groupby(cols).cumcount()+1
 for c in ["saverFare", "mainFare", "firstFare", "refundYFare", "refundFFare"]:
     df["idxInd"] = df[c].notnull()*df.idx
     df["maxT"] = df.groupby(cols).idxInd.transform("max")
-    df[c] = df.groupby(cols, as_index=False)[c].ffill()
+    df[c] = df.groupby(cols, as_index = False)[c].ffill()
     df.loc[df.idx > df.maxT, c] = np.nan
 
 fcols = [
@@ -445,7 +445,7 @@ dfC = df.loc[df.nonstop == 0].reset_index(drop = True)
 dfC["fare"] = dfC[dfC.columns[dfC.columns.to_series().str.contains("Fare")]].min(axis = 1)
 
 df = df.loc[df.capY.notnull()]
-df = df.loc[~((df.capY == 76) & (df.capF == 12))].reset_index(drop=True)
+df = df.loc[~((df.capY == 76) & (df.capF == 12))].reset_index(drop = True)
 df.shape
 # (798566, 54)
 
@@ -460,13 +460,13 @@ df["fare"] = df[df.columns[df.columns.to_series().str.contains("Fare")]].min(axi
 df.loc[df.fare.isnull(), "sY"] = 0
 df.loc[df.fare.isnull(), "sF"] = 0
 
-df["lf"] = (df.capY + df.capF - df.sY - df.sF)/(df.capY+df.capF)
-df .loc[df.capY == 76, "lf"] = (df.capY- df.sY)/df.capY
+df["lf"] = (df.capY + df.capF - df.sY - df.sF) / (df.capY+df.capF)
+df .loc[df.capY == 76, "lf"] = (df.capY- df.sY) / df.capY
 
 cols = ["origin", "dest", "ddate", "flightNum"]
 df["ones"] = 1
 df["numObs"] = df.groupby(cols)["ones"].transform("sum")
-df = df.loc[df.numObs >= 59].reset_index(drop=True)
+df = df.loc[df.numObs >= 59].reset_index(drop = True)
 
 df = df[[
     "flightNum", "ddate", "sdate", "capacity1", "seats1", "capacity2",
