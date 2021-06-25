@@ -1,44 +1,26 @@
-sbatch	robustEstimBIL_SEA.sh
-sleep 30
-sbatch	robustEstimBOI_PDX.sh
-sleep 30
-sbatch	robustEstimBZN_PDX.sh
-sleep 30
-sbatch	robustEstimCHS_SEA.sh
-sleep 30
-sbatch	robustEstimCMH_SEA.sh
-sleep 30
-sbatch	robustEstimFAT_PDX.sh
-sleep 30
-sbatch	robustEstimGEG_PDX.sh
-sleep 30
-sbatch	robustEstimGTF_SEA.sh
-sleep 30
-sbatch	robustEstimHLN_SEA.sh
-sleep 30
-sbatch	robustEstimICT_SEA.sh
-sleep 30
-sbatch	robustEstimMSO_PDX.sh
-sleep 30
-sbatch	robustEstimOKC_SEA.sh
-sleep 30
-sbatch	robustEstimPDX_RNO.sh
-sleep 30
-sbatch	robustEstimPDX_SBA.sh
-sleep 30
-sbatch	robustEstimPDX_STS.sh
-sleep 30
-sbatch	robustEstimSBA_SEA.sh
-sleep 30
-sbatch	robustEstimSEA_STS.sh
-sleep 30
-sbatch	robustEstimSEA_SUN.sh
-sleep 30
-sbatch	robustEstimBOS_SAN.sh
-sleep 30
-sbatch	robustEstimBOS_MCI.sh
-sleep 30
-sbatch	robustEstimBOS_JAX.sh
-sleep 30
-sbatch	robustEstimAUS_BOS.sh
+#!/bin/sh
+"""
+    Run the sh programs to run robust_estim on SLURM.
+--------------------------------------------------------------------------------
+change log:
+    v0.0.1  Fri 25 Jun 2021
+-------------------------------------------------------------------------------
+notes:
 
+--------------------------------------------------------------------------------
+contributors:
+    Kevin:
+        name:       Kevin Williams
+        email:      kevin.williams@yale.edu
+--------------------------------------------------------------------------------
+Copyright 2021 Yale University
+"""
+
+for market in "BIL_SEA" "BOI_PDX" "BZN_PDX" "CHS_SEA" "CMH_SEA" "FAT_PDX" \
+    "GEG_PDX" "GTF_SEA" "HLN_SEA" "ICT_SEA" "MSO_PDX" "OKC_SEA" \
+    "PDX_RNO" "PDX_SBA" "PDX_STS" "SBA_SEA" "SEA_STS" "SEA_SUN" \
+    "BOS_SAN" "BOS_MCI" "BOS_JAX" "AUS_BOS"
+do
+    sbatch robustEstim${market}.sh
+    sleep 30
+done

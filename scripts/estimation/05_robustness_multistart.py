@@ -17,7 +17,7 @@ last edit:
     Thurs 10 Feb 2021
 -------------------------------------------------------------------------------
 notes:
-    
+
 --------------------------------------------------------------------------------
 contributors:
     Kevin:
@@ -44,7 +44,7 @@ import os
 import subprocess as sp
 import time
 import random
-from jax_setup import * # import jax setup
+from estimation_setup import * # import jax params and common functions
 
 # --------------------------------------------------------------------------------
 # Set program parameters
@@ -269,7 +269,7 @@ def estimKnitro(VAR, data, speed):
     # KN_GRADOPT_EXACT,KN_GRADOPT_FORWARD
     KN_set_int_param(kc, "gradopt", KN_GRADOPT_EXACT)
     KN_set_double_param(kc, KN_PARAM_FEASTOL, 1.0E-8)
-    KN_set_double_param(kc, KN_PARAM_OPTTOL, 1.0E-8) 
+    KN_set_double_param(kc, KN_PARAM_OPTTOL, 1.0E-8)
     KN_set_int_param(kc, "par_numthreads", NUM_THREADS)
     KN_set_int_param(kc, "blasoption", 1)
     KN_set_int_param(kc, "par_blasnumthreads", NUM_THREADS)

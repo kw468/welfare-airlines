@@ -1,56 +1,26 @@
-sbatch	calcSEBIL_SEA.sh
-sleep 30
-sbatch	calcSEBOI_PDX.sh
-sleep 30
-sbatch	calcSEBZN_PDX.sh
-sleep 30
-sbatch	calcSECHS_SEA.sh
-sleep 30
-sbatch	calcSECMH_SEA.sh
-sleep 30
-sbatch	calcSEFAT_PDX.sh
-sleep 30
-sbatch	calcSEGEG_PDX.sh
-sleep 30
-sbatch	calcSEGTF_SEA.sh
-sleep 30
-sbatch	calcSEHLN_SEA.sh
-sleep 30
-sbatch	calcSEICT_SEA.sh
-sleep 30
-#sbatch	calcSELIH_PDX.sh
-#sleep 30
-sbatch	calcSEMSO_PDX.sh
-sleep 30
-sbatch	calcSEOKC_SEA.sh
-sleep 30
-sbatch	calcSEOMA_SEA.sh
-sleep 30
-#sbatch	calcSEPDX_PSP.sh
-#sleep 30
-sbatch	calcSEPDX_RNO.sh
-sleep 30
-sbatch	calcSEPDX_SBA.sh
-sleep 30
-#sbatch	calcSEPDX_SMF.sh
-#sleep 30
-sbatch	calcSEPDX_STS.sh
-sleep 30
-sbatch	calcSESBA_SEA.sh
-sleep 30
-sbatch	calcSESEA_STS.sh
-sleep 30
-sbatch	calcSESEA_SUN.sh
-sleep 30
-#sbatch	calcSEBOS_SEA.sh
-#sleep 30
-sbatch	calcSEBOS_SAN.sh
-sleep 30
-#sbatch	calcSEBOS_PDX.sh
-#sleep 30
-sbatch	calcSEBOS_MCI.sh
-sleep 30
-sbatch	calcSEBOS_JAX.sh
-sleep 30
-sbatch	calcSEAUS_BOS.sh
+#!/bin/sh
+"""
+    Run the sh progrms to run calc_se on SLURM.
+--------------------------------------------------------------------------------
+change log:
+    v0.0.1  Fri 25 Jun 2021
+-------------------------------------------------------------------------------
+notes:
 
+--------------------------------------------------------------------------------
+contributors:
+    Kevin:
+        name:       Kevin Williams
+        email:      kevin.williams@yale.edu
+--------------------------------------------------------------------------------
+Copyright 2021 Yale University
+"""
+
+for market in "BIL_SEA" "BOI_PDX" "BZN_PDX" "CHS_SEA" "CMH_SEA" "FAT_PDX" \
+    "GEG_PDX" "GTF_SEA" "HLN_SEA" "ICT_SEA" "MSO_PDX" "OKC_SEA" \
+    "PDX_RNO" "PDX_SBA" "PDX_STS" "SBA_SEA" "SEA_STS" "SEA_SUN" \
+    "BOS_SAN" "BOS_MCI" "BOS_JAX" "AUS_BOS"
+do
+    sbatch calc${market}.sh
+    sleep 30
+done
