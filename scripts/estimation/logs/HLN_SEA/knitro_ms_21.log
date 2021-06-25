@@ -1,0 +1,158 @@
+
+Solving from new start point (number 21 of 42) <multistart>.
+
+
+=======================================
+*** NO CHECK MADE FOR LICENSE ***
+         Artelys Knitro 12.3.0
+=======================================
+
+Knitro presolve eliminated 0 variables and 0 constraints.
+
+algorithm:               4
+bar_maxcrossit:          3
+datacheck:               0
+feastol:                 1e-08
+hessopt:                 2
+maxtime_cpu:             9.99996e+07
+maxtime_real:            9.99998e+07
+opttol:                  1e-08
+outlev:                  5
+outmode:                 2
+par_concurrent_evals:    0
+The problem is identified as bound constrained only.
+Knitro changing act_qpalg from AUTO to 3.
+Knitro changing honorbnds from AUTO to -1.
+Knitro changing linesearch from AUTO to 2.
+Knitro changing linsolver from AUTO to 4.
+
+Problem Characteristics                                 (   Presolved)
+-----------------------
+Objective goal:  Maximize
+Objective type:  general
+Number of variables:                                 23 (          23)
+    bounded below only:                               0 (           0)
+    bounded above only:                               0 (           0)
+    bounded below and above:                         23 (          23)
+    fixed:                                            0 (           0)
+    free:                                             0 (           0)
+Number of constraints:                                0 (           0)
+    linear equalities:                                0 (           0)
+    quadratic equalities:                             0 (           0)
+    gen. nonlinear equalities:                        0 (           0)
+    linear one-sided inequalities:                    0 (           0)
+    quadratic one-sided inequalities:                 0 (           0)
+    gen. nonlinear one-sided inequalities:            0 (           0)
+    linear two-sided inequalities:                    0 (           0)
+    quadratic two-sided inequalities:                 0 (           0)
+    gen. nonlinear two-sided inequalities:            0 (           0)
+Number of nonzeros in Jacobian:                       0 (           0)
+Number of nonzeros in Hessian:                        0 (         276)
+
+Knitro using the Sequential Quadratic Programming (SQP) algorithm.
+
+  Iter     fCount     Objective      FeasError   OptError    ||Step||    CGits 
+--------  --------  --------------  ----------  ----------  ----------  -------
+       0         1   -4.677504e+04   0.000e+00
+       1         3   -3.928509e+04   0.000e+00   2.891e+01   3.480e+00        0
+       2         5   -3.769042e+04   0.000e+00   1.485e+01   2.014e+00        0
+       3         8   -3.688645e+04   0.000e+00   8.188e+00   1.673e+00        0
+       4        10   -3.622519e+04   0.000e+00   1.386e+01   4.161e+00        0
+       5        11   -3.524621e+04   0.000e+00   1.498e+01   2.532e+00        0
+       6        13   -3.466700e+04   0.000e+00   7.204e+00   2.022e+00        0
+       7        16   -3.454024e+04   0.000e+00   2.091e+01   3.376e-01        0
+       8        19   -3.422307e+04   0.000e+00   1.994e+01   8.598e-01        0
+       9        21   -3.408932e+04   0.000e+00   3.453e+01   1.288e+00        0
+      10        23   -3.385675e+04   0.000e+00   1.153e+01   1.044e+00        0
+      11        25   -3.365671e+04   0.000e+00   1.689e+01   7.469e-01        0
+      12        27   -3.357078e+04   0.000e+00   2.103e+01   5.367e-01        0
+      13        28   -3.351921e+04   0.000e+00   5.603e+00   9.260e-01        0
+      14        31   -3.340819e+04   0.000e+00   7.895e+00   2.390e-01        0
+      15        33   -3.334423e+04   0.000e+00   5.491e+00   3.335e-01        0
+      16        36   -3.332678e+04   0.000e+00   2.584e+00   1.732e-01        0
+      17        38   -3.331471e+04   0.000e+00   4.869e+00   1.764e-01        0
+      18        39   -3.330031e+04   0.000e+00   1.087e+00   1.896e-01        0
+      19        40   -3.329801e+04   0.000e+00   1.636e+00   1.830e-01        0
+      20        41   -3.329519e+04   0.000e+00   1.275e+00   8.410e-02        0
+      21        43   -3.329500e+04   0.000e+00   3.385e-01   2.445e-02        0
+      22        44   -3.329498e+04   0.000e+00   7.071e-01   3.234e-02        0
+      23        45   -3.329481e+04   0.000e+00   5.016e-02   1.486e-02        0
+      24        46   -3.329480e+04   0.000e+00   1.105e-02   1.746e-03        0
+      25        47   -3.329480e+04   0.000e+00   2.008e-03   5.380e-04        0
+      26        48   -3.329480e+04   0.000e+00   7.767e-04   1.498e-04        0
+      27        49   -3.329480e+04   0.000e+00   1.627e-04   4.049e-05        0
+      28        50   -3.329480e+04   0.000e+00   1.627e-04   4.828e-06        0
+      29        51   -3.329480e+04   0.000e+00   4.500e-04   3.306e-05        0
+      30        52   -3.329480e+04   0.000e+00   9.563e-04   7.988e-05        0
+      31        53   -3.329480e+04   0.000e+00   1.855e-03   2.471e-04        0
+      32        54   -3.329480e+04   0.000e+00   3.256e-03   6.570e-04        0
+      33        55   -3.329480e+04   0.000e+00   5.541e-03   1.790e-03        0
+      34        56   -3.329480e+04   0.000e+00   9.164e-03   4.712e-03        0
+      35        57   -3.329480e+04   0.000e+00   1.480e-02   1.224e-02        0
+      36        60   -3.329480e+04   0.000e+00   1.678e-02   7.379e-03        0
+      37        65   -3.329480e+04   0.000e+00   1.207e-02   1.451e-04        6
+      38        70   -3.329480e+04   0.000e+00   4.609e-03   2.528e-04        7
+      39        78   -3.329480e+04   0.000e+00   1.236e-03   1.845e-03       50
+      40        87   -3.329480e+04   0.000e+00   1.061e-03   8.071e-04       51
+      41        96   -3.329480e+04   0.000e+00   2.115e-04   3.531e-04       47
+      42       108   -3.329480e+04   0.000e+00   1.559e-04   1.931e-05       50
+      43       112   -3.329480e+04   0.000e+00   1.559e-04   1.525e-06        0
+      44       117   -3.329480e+04   0.000e+00   1.772e-04   3.049e-06        2
+      45       120   -3.329480e+04   0.000e+00   1.772e-04   1.337e-06        0
+      46       126   -3.329480e+04   0.000e+00   2.561e-04   1.337e-06        4
+      47       129   -3.329480e+04   0.000e+00   2.693e-04   1.812e-07        0
+      48       130   -3.329480e+04   0.000e+00   1.559e-04   6.261e-05        0
+      49       132   -3.329480e+04   0.000e+00   1.559e-04   5.431e-07        0
+      50       133   -3.329480e+04   0.000e+00   1.559e-04   1.709e-06        0
+      51       146   -3.329480e+04   0.000e+00   1.559e-04   1.335e-08       21
+      52       147   -3.329480e+04   0.000e+00   1.595e-04   2.048e-07        0
+      53       149   -3.329480e+04   0.000e+00   1.594e-04   2.840e-08        0
+      54       154   -3.329480e+04   0.000e+00   1.559e-04   2.995e-08        3
+      55       157   -3.329480e+04   0.000e+00   1.559e-04   2.794e-08        0
+      56       187   -3.329480e+04   0.000e+00   1.262e-04   8.206e-16       32
+      57       190   -3.329480e+04   0.000e+00   1.559e-04   2.872e-15        0
+      58       199   -3.329480e+04   0.000e+00   1.262e-04   3.590e-16        5
+
+EXIT: Primal feasible solution; terminate because the relative change in
+      solution estimate < xtol for 3 consecutive iterations.
+
+Final Statistics
+----------------
+Final objective value               =  -3.32948031427022e+04
+Final feasibility error (abs / rel) =   0.00e+00 / 0.00e+00
+Final optimality error  (abs / rel) =   1.26e-04 / 1.93e-05
+# of iterations                     =         58 
+# of CG iterations                  =        278 
+# of function evaluations           =        199
+# of gradient evaluations           =         59
+Total program time (secs)           =    2895.76758 ( 60590.266 CPU time)
+Time spent in evaluations (secs)    =    2866.45312
+
+Solution Vector
+---------------
+x[       0] =   3.36614071071e+00
+x[       1] =   2.83335173494e+00
+x[       2] =   2.75846786832e+00
+x[       3] =   3.03863482697e+00
+x[       4] =   3.17498071711e+00
+x[       5] =   2.70798836694e+00
+x[       6] =   3.34762205366e+00
+x[       7] =  -1.72702201106e+00
+x[       8] =  -1.72702201130e+00
+x[       9] =  -8.77731417938e+00
+x[      10] =  -4.77433347822e+00
+x[      11] =   5.50987930431e-02
+x[      12] =   7.99196437114e-01
+x[      13] =   4.29391541226e-01
+x[      14] =   5.64354428049e-01
+x[      15] =   3.51746150945e-01
+x[      16] =   1.32244092990e+00
+x[      17] =   1.41959873233e+00
+x[      18] =   1.39274009064e+00
+x[      19] =   1.46722248847e+00
+x[      20] =   1.39798019719e+00
+x[      21] =   1.28475615645e+00
+x[      22] =   1.61218115655e-01
+
+===============================================================================
+
