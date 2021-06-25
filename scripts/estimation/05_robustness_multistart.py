@@ -251,7 +251,7 @@ def logLike(VAR, data):
     return loss0 + loss1
 
 # setup the problem in knitro
-def estimKnitro(VAR,data,speed):
+def estimKnitro(VAR, data, speed):
     n = len(VAR)
     bndsLo = np.array(VAR) - .5 * np.abs(np.array(VAR))
     bndsUp = np.array(VAR) + .5 * np.abs(np.array(VAR))

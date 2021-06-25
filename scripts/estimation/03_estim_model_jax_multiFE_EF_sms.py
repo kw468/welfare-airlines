@@ -257,7 +257,7 @@ def logLike(VAR, data):
     return loss0 + loss1
 
 # setup the problem in knitro
-def estimKnitro(VAR,data,speed):
+def estimKnitro(VAR, data, speed):
     n = len(VAR)
     bndsLo = np.array([
         -10, -10, -10, -10, -10, -10, -10, -10, -10,
@@ -321,7 +321,7 @@ def estimKnitro(VAR,data,speed):
     return x
 
 ## so that AB, BA both become A-B
-def determine_OD_Pair(D,O):
+def determine_OD_Pair(D, O):
     return "_".join(sorted([D,O]))
 
 # load the EF data and create ODs
