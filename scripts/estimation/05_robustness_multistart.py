@@ -76,8 +76,13 @@ os.environ["CUDA_VISIBLE_DEVICES"] = str(gpu)
 # --------------------------------------------------------------------------------
 INPUT = "../../data/estimation/"
 OUTPUT = INPUT + market + "/robust_estim/"
-if not os.path.exists(OUTPUT):
-    os.makedirs(OUTPUT)
+LOG_PATH = "logs/" + market + "/robust_estim/"
+for path in [LOG_PATH, OUTPUT]
+    if not os.path.exists(path):
+        os.makedirs(path)
+
+# change path so log to the right place
+os.chdir(LOG_PATH)
 
 # define the probability that a low type wants to buy
 # rewrite exp(a)/(1 + exp(a)) as 1/(1/exp(a) + 1) = 1/(1 + exp(-a))
@@ -339,6 +344,10 @@ elif speed == "fast":
     gradF = jit(grad(lambda x: logLike_jit(x, data)))
 
 solution0 = estimKnitro(VAR,data,speed)
+
+# back to scripts/estimation so save correctly
+os.chdir("../../../")
+
 pd.DataFrame(solution0).to_csv(
     OUTPUT + market + "_robust_params.csv",
     header = None,

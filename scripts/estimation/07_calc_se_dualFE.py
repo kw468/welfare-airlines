@@ -82,8 +82,13 @@ os.environ["CUDA_VISIBLE_DEVICES"] = str(gpu)
 # --------------------------------------------------------------------------------
 INPUT = "../../data/estimation/"
 OUTPUT = INPUT + market + "/se/"
-if not os.path.exists(OUTPUT):
-    os.makedirs(OUTPUT)
+LOG_PATH = "logs/" + market + "/se/"
+for path in [LOG_PATH, OUTPUT]
+    if not os.path.exists(path):
+        os.makedirs(path)
+
+# change path so log to the right place
+os.chdir(LOG_PATH)
 
 # setup the problem in knitro
 def estimKnitro(VAR,data):
@@ -130,7 +135,6 @@ def estimKnitro(VAR,data):
     KN_free(kc)
     return x
 
-
 df_route = pd.read_csv(INPUT + market + ".csv", index_col = 0)
 
 df_route_pt = pd.read_csv(INPUT + market + "_Pt.csv", header = None)
@@ -163,6 +167,9 @@ for it in range(numBS):
     os.rename("knitro.log", "knitro_" + str(it) + ".log")
     if not np.array_equal(solution0, xInit):
         X.append(solution0)
+
+# back to scripts/estimation so save correctly
+os.chdir("../../../")
 
 X = np.array(X)
 df = pd.DataFrame(X)

@@ -82,10 +82,13 @@ os.environ["CUDA_VISIBLE_DEVICES"] = str(gpu)
 # --------------------------------------------------------------------------------
 INPUT = "../../data"
 OUTPUT  = INPUT + "estimation/" + market + "/"
-if not os.path.exists(OUTPUT):
-    os.makedirs(OUTPUT)
+LOG_PATH = "logs/" + market + "/"
+for path in [LOG_PATH, OUTPUT]
+    if not os.path.exists(path):
+        os.makedirs(path)
 
-os.chdir(OUTPUT)
+# change path so log to the right place
+os.chdir(LOG_PATH)
 
 # setup the problem in knitro
 def estimKnitro(VAR, data, speed):
@@ -275,6 +278,9 @@ elif speed == "fast":
     gradF = jit(grad(lambda x: logLike_jit(x, data)))
 
 solution0 = estimKnitro(VAR, data, speed)
+
+# back to scripts/estimation so save correctly
+os.chdir("../../")
 
 df_route.to_csv(OUTPUT + market + ".csv")
 pd.DataFrame(solution0).to_csv(
