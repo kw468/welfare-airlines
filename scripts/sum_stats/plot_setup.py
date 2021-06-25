@@ -1,1 +1,1 @@
-../plots/plot_setup.py
+../setup/plot_setup.py
