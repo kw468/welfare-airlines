@@ -26,14 +26,13 @@ import seaborn as sns
 import statsmodels.api as sm
 from scipy import stats
 from statsmodels.stats.weightstats import ttest_ind
+from plot_setup import *
 
 INPUT = "../../data"
 OUTPUT = "../../output"
 
 # figure settings
 COLORS = ["windows blue", "greyish", "black", "red"]
-DPI = 600
-FIG_FORMAT = "PDF"
 sns.set(style = "white", palette = sns.xkcd_palette(COLORS), color_codes = False)
 
 def gatherAirports(f):
