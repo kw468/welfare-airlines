@@ -1,0 +1,113 @@
+
+Solving from new start point (number 35 of 42) <multistart>.
+
+
+=======================================
+*** NO CHECK MADE FOR LICENSE ***
+         Artelys Knitro 12.3.0
+=======================================
+
+Knitro presolve eliminated 0 variables and 0 constraints.
+
+algorithm:               4
+bar_maxcrossit:          3
+datacheck:               0
+feastol:                 1e-08
+hessopt:                 2
+maxtime_cpu:             9.9217e+07
+maxtime_real:            9.99623e+07
+opttol:                  1e-08
+outlev:                  5
+outmode:                 2
+par_concurrent_evals:    0
+The problem is identified as bound constrained only.
+Knitro changing act_qpalg from AUTO to 3.
+Knitro changing honorbnds from AUTO to -1.
+Knitro changing linesearch from AUTO to 2.
+Knitro changing linsolver from AUTO to 4.
+
+Problem Characteristics                                 (   Presolved)
+-----------------------
+Objective goal:  Maximize
+Objective type:  general
+Number of variables:                                 23 (          23)
+    bounded below only:                               0 (           0)
+    bounded above only:                               0 (           0)
+    bounded below and above:                         23 (          23)
+    fixed:                                            0 (           0)
+    free:                                             0 (           0)
+Number of constraints:                                0 (           0)
+    linear equalities:                                0 (           0)
+    quadratic equalities:                             0 (           0)
+    gen. nonlinear equalities:                        0 (           0)
+    linear one-sided inequalities:                    0 (           0)
+    quadratic one-sided inequalities:                 0 (           0)
+    gen. nonlinear one-sided inequalities:            0 (           0)
+    linear two-sided inequalities:                    0 (           0)
+    quadratic two-sided inequalities:                 0 (           0)
+    gen. nonlinear two-sided inequalities:            0 (           0)
+Number of nonzeros in Jacobian:                       0 (           0)
+Number of nonzeros in Hessian:                        0 (         276)
+
+Knitro using the Sequential Quadratic Programming (SQP) algorithm.
+
+  Iter     fCount     Objective      FeasError   OptError    ||Step||    CGits 
+--------  --------  --------------  ----------  ----------  ----------  -------
+       0         1   -1.409861e+05   0.000e+00
+       1         2   -6.919661e+04   0.000e+00   7.775e+00   3.299e-01        0
+       2         3   -6.694536e+04   0.000e+00   9.268e+00   1.740e-01        0
+       3         4   -6.626942e+04   0.000e+00   2.150e+00   2.323e-02        0
+       4         5   -6.594315e+04   0.000e+00   6.761e-01   6.330e-02        0
+       5         6   -6.531600e+04   0.000e+00   1.938e+00   2.575e-01        0
+       6         7   -6.492547e+04   0.000e+00   2.123e-02   9.150e-02        0
+       7        14   -6.488458e+04   0.000e+00   9.630e-03   1.210e-02       12
+       8        16   -6.478037e+04   0.000e+00   2.519e-01   4.045e-02        0
+       9        20   -6.476449e+04   0.000e+00   4.111e-01   7.899e-03        0
+      10        22   -6.450386e+04   0.000e+00   7.283e-01   3.965e-02        0
+      11        60   -6.450386e+04   0.000e+00   1.784e-02   2.357e-15       34
+      12        64   -6.450386e+04   0.000e+00   7.283e-01   4.124e-15        0
+      13       107   -6.450386e+04   0.000e+00   1.784e-02   2.945e-16       42
+
+EXIT: Primal feasible solution; terminate because the relative change in
+      solution estimate < xtol for 3 consecutive iterations.
+
+Final Statistics
+----------------
+Final objective value               =  -6.45038632559371e+04
+Final feasibility error (abs / rel) =   0.00e+00 / 0.00e+00
+Final optimality error  (abs / rel) =   1.78e-02 / 1.78e-02
+# of iterations                     =         13 
+# of CG iterations                  =         88 
+# of function evaluations           =        107
+# of gradient evaluations           =         14
+Total program time (secs)           =   10482.90039 (219189.875 CPU time)
+Time spent in evaluations (secs)    =   10298.41406
+
+Solution Vector
+---------------
+x[       0] =   7.07162182380e+00
+x[       1] =   7.75772036929e+00
+x[       2] =   8.11175333588e+00
+x[       3] =   5.13948775919e+00
+x[       4] =   7.98853719477e+00
+x[       5] =   8.80147232263e+00
+x[       6] =   8.91935980036e+00
+x[       7] =  -1.66428161536e+00
+x[       8] =  -4.52355411362e+00
+x[       9] =  -5.27044618625e-01
+x[      10] =  -1.98735556144e-02
+x[      11] =   4.43751699155e-04
+x[      12] =   1.24755071155e+00
+x[      13] =   1.40197320397e+00
+x[      14] =   1.35456450937e+00
+x[      15] =   7.14218377364e-01
+x[      16] =   1.23355943934e+00
+x[      17] =   1.46248141710e+00
+x[      18] =   8.20686218229e-01
+x[      19] =   6.52410126687e-01
+x[      20] =   6.09672563673e-01
+x[      21] =   9.44986913520e-01
+x[      22] =   4.07006609302e-01
+
+===============================================================================
+
