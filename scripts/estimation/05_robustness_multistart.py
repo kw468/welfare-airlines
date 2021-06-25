@@ -74,12 +74,10 @@ os.environ["CUDA_VISIBLE_DEVICES"] = str(gpu)
 # --------------------------------------------------------------------------------
 # Set path for data and logs
 # --------------------------------------------------------------------------------
-INPUT = "logs/" + market + "/"
-OUTPUT = "logs/" + market + "/robust_estim/"
+INPUT = "../../data/estimation/"
+OUTPUT = INPUT + market + "/robust_estim/"
 if not os.path.exists(OUTPUT):
     os.makedirs(OUTPUT)
-
-os.chdir(OUTPUT)
 
 # define the probability that a low type wants to buy
 # rewrite exp(a)/(1 + exp(a)) as 1/(1/exp(a) + 1) = 1/(1 + exp(-a))

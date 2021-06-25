@@ -80,12 +80,10 @@ os.environ["CUDA_VISIBLE_DEVICES"] = str(gpu)
 # --------------------------------------------------------------------------------
 # Set path for data and logs
 # --------------------------------------------------------------------------------
-INPUT = "logs/" + market + "/"
-OUTPUT = "logs/" + market + "/se/"
+INPUT = "../../data/estimation/"
+OUTPUT = INPUT + market + "/se/"
 if not os.path.exists(OUTPUT):
     os.makedirs(OUTPUT)
-
-os.chdir(OUTPUT)
 
 # setup the problem in knitro
 def estimKnitro(VAR,data):

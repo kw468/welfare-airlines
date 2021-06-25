@@ -70,7 +70,7 @@ module load py-jax-0.2.9-gcc-9.3.0-hcbn53p
 module load py-jaxlib-0.1.59-gcc-9.3.0-kqzodnr
 module load py-pyarrow-0.17.1-gcc-9.3.0-gp34oiu
 module load py-python-snappy-0.6.0-gcc-9.3.0-2xpqbto
-python /gpfs/home/kw468/airlines_jmp/scripts/robust_estim.py {i} exact
+python robust_estim.py {i} exact
 """
     f = open("robustEstim" + i + ".sh", "w")
     f.write(script)
