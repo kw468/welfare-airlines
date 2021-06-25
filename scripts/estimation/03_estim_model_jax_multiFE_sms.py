@@ -20,7 +20,7 @@ notes:  This program uses two specialized softwares; knitro and gpu-enabled jax.
         A licenses and the callable python api of knitro can be obtained Artleys.
         The programs expects the correct cuda drivers installed as functions are
         compiled and ran on a local nividia GPUs using the jax callable api.
-    
+
 --------------------------------------------------------------------------------
 contributors:
     Kevin:
@@ -91,15 +91,15 @@ os.chdir(OUTPUT)
 # rewrite exp(a)/(1 + exp(a)) as 1/(1/exp(a) + 1) = 1/(1 + exp(-a))
 @jit
 def purchInL(beta, bL, gamma): # p is dim(P), gam is dim(T), beta is dim FE
-    return (1 - gamma)[:, None, None] *1 / \
+    return (1 - gamma)[:, None, None] * 1 / \
         (1 + jnp.exp(-beta[None, None, :] - bL * prices[None, :, None]))
-    # returned object is T,P dimension
+    # returned object is T, P dimension
 
 # define the probability that a high type wants to buy
 @jit
 def purchInB(beta, bB, gamma): # p is dim(P), gam is dim(T), beta is dim FE
     return (gamma)[:, None, None] * 1 / \
-        (1 + jnp.exp(-beta[None, None, :] - bB *p rices[None, :, None]))
+        (1 + jnp.exp(-beta[None, None, :] - bB * prices[None, :, None]))
     # returned object is T,P dimension
 
 # define, this returns a T X P matrix of probability of purchase across both consumer types
@@ -111,10 +111,12 @@ def purchIn(beta, bB, bL, gamma):
 # this is the log of the poisson pmf
 @jit
 def log_demandQ(beta, bL, bB, gamma, mu, q):
-    return q * jnp.log(mu[:, None, :]) + q *j np.log(purchIn(beta, bB, bL, gamma)) - \
+    return q * jnp.log(mu[:, None, :]) + q * \
+        jnp.log(purchIn(beta, bB, bL, gamma)) - \
         (mu[:, None, :] * purchIn(beta, bB, bL, gamma)) - gammaln(q + 1)
 
-# define the probability of that demand is equal to q given the parameters of the model, this is just exp(log(p)),
+# define the probability of that demand is equal 
+# to q given the parameters of the model, this is just exp(log(p)),
 # which is done for numerical stablility
 @jit
 def demandQ(beta, bL, bB, gamma, mu, q):
@@ -142,9 +144,8 @@ def allDemand(beta, bL, bB, gamma, mu):
     return f
     # returning dimension is seats remaining, seats sold, time, and prices
 
-
 # define the CCP and EV for the dynamic firm problem
-def dynEst(f,ER,gamma,sig,beta):
+def dynEst(f, ER, gamma, sig, beta):
     np.seterr(all = "raise")
         # create storage for EV, V, CCP
     EV = jnp.zeros((T, qBar, numP, len(beta)))
@@ -153,9 +154,10 @@ def dynEst(f,ER,gamma,sig,beta):
     for t in range(1, T+1):
         # work backwards in time. In the last period, we just get last period revenues
         if t == 1:
-            # the softmax function can be rewritten, so let"s use logsum(exp) = x* + log sum (exp (x-x*))
-            grp = ER[:,-t,:,:] / (sig) * Pt[-t, 1:][None, :, None]
-            grp = jnp.where(grp == 0, -jnp.inf, grp) 
+            # the softmax function can be rewritten,
+            # so let"s use logsum(exp) = x* + log sum (exp (x-x*))
+            grp = ER[:, -t, :, :] / (sig) * Pt[-t, 1:][None, :, None]
+            grp = jnp.where(grp == 0, -jnp.inf, grp)
             V = V.at[:, -t, :].set(sig * logsumexp(grp , axis = 1) + EC * sig)
             V = V.at[0, -t, :].set(0)
             CCP = CCP.at[-t, :, :, :].set(grp - logsumexp(grp, axis = 1)[:, None, :])
@@ -163,16 +165,18 @@ def dynEst(f,ER,gamma,sig,beta):
             # CCP[-t, :, :] = Pt[-t, 1:][None, :] * np.exp(ER[:, -t, :] / sig) / \
             #     np.sum(np.exp(ER[:, -t, :] * Pt[-t, 1:][None, :] / sig), axis = 1)[:,None]
         else:
-            grp = (ER[:, -t, :, :] / sig + EV[-t+1, :, :, :] / sig) * Pt[-t, 1:][None, :, None]
-            grp = jnp.where(grp == 0, -jnp.inf, grp) 
+            grp = (ER[:, -t, :, :] / sig + EV[-t+1, :, :, :] / sig) * \
+                Pt[-t, 1:][None, :, None]
+            grp = jnp.where(grp == 0, -jnp.inf, grp)
             V = V.at[:, -t, :].set(sig * logsumexp(grp, axis = 1) + EC * sig)
             V = V.at[0, -t, :].set(0)
         # now we need to define EV, which is int_c" V f(c"),
         # so we"ll use tril to reset array(x) as reversearray(x)
-        # this allows us to calc that the Pr(Q = 1) aligns with Pr(c" = c - 1)   
+        # this allows us to calc that the Pr(Q = 1) aligns with Pr(c" = c - 1)
         r, c = jnp.tril_indices_from(f[:, :, 0, 0, 0])
         for b in range(len(beta)):
-            if t != T: #update expected value function, this is for not the last period
+            # update expected value function, this is for not the last period
+            if t != T:
                 g = jnp.array(f[:, :, -t - 1, :, b])
                 g = g.at[r, c, :].set(g[r, r - c, :])
                 EV = EV.at[-t, :, :, b].set(
@@ -181,7 +185,7 @@ def dynEst(f,ER,gamma,sig,beta):
         if t != 1:
             XX = (ER[:, -t, :, :] + EV[-t + 1, :, :, :]) / \
                 sig * Pt[-t, 1:][None, :, None]
-            XX = jnp.where(XX == 0, -jnp.inf, XX) 
+            XX = jnp.where(XX == 0, -jnp.inf, XX)
             CCP = CCP.at[-t, :, :, :].set(XX - logsumexp(XX, axis = 1)[:, None, :])
     return CCP
 
@@ -194,9 +198,10 @@ def gradientSig(VAR, data):
     beta = jnp.array(VAR[0:7])
     bL = jnp.minimum(VAR[7], VAR[8])
     bB = jnp.maximum(VAR[7], VAR[8])
-    gamma = 1 / (jnp.exp(
-        -VAR[9] - jnp.arange(0 , 60) * VAR[10] - \
-            (jnp.arange(0, 60) ** 2) * VAR[11]
+    gamma = 1 / (
+        jnp.exp(
+            -VAR[9] - jnp.arange(0, 60) * VAR[10] - \
+                (jnp.arange(0, 60) ** 2) * VAR[11]
         ) + 1
     )
     # equivalent to jnp.array([1/(1 + jnp.exp(-g[0] + -t*g[1] - t**2*g[2])) for t in range(0,60)])
@@ -210,8 +215,11 @@ def gradientSig(VAR, data):
     sig = VAR[-1]
     # first FE
     f0 = allDemand_jit(beta, bL, bB, gamma, mu)
-    ER0 = jnp.sum(f0 * jnp.array(range(qBar))[None, :, None, None, None] * \
-        prices[None, None, None, :, None], axis = 1)
+    ER0 = jnp.sum(
+        f0 * jnp.array(range(qBar))[None, :, None, None, None] * \
+            prices[None, None, None, :, None],
+        axis = 1
+    )
     CCP0 = dynEst_jit(f0, ER0, gamma, sig + 1e-4, beta)
     loss0 = jnp.sum(CCP0[data[:, 2], data[:, 0], data[:, 3], data[:, 4]])
     CCP1 = dynEst_jit(f0, ER0, gamma, sig - 1e-4, beta)
@@ -267,7 +275,7 @@ def estimKnitro(VAR,data,speed):
     ])
     bndsUp = np.array([
         15, 15, 15, 15, 15, 15, 15, 0, 0, 40, 10, .15,
-        15, 15, 15, 15,15, 15, 15, 15, 15, 15 ,2
+        15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 2
     ])
     kc = KN_new()
     KN_add_vars(kc, n)
@@ -283,7 +291,7 @@ def estimKnitro(VAR,data,speed):
     # KN_GRADOPT_EXACT,KN_GRADOPT_FORWARD
     KN_set_int_param(kc, "gradopt", KN_GRADOPT_EXACT)
     KN_set_double_param(kc, KN_PARAM_FEASTOL, 1.0E-8)
-    KN_set_double_param(kc, KN_PARAM_OPTTOL, 1.0E-8) 
+    KN_set_double_param(kc, KN_PARAM_OPTTOL, 1.0E-8)
     KN_set_int_param(kc, "par_numthreads", NUM_THREADS)
     KN_set_int_param(kc, "blasoption", 1)
     KN_set_int_param(kc, "par_blasnumthreads", NUM_THREADS)
@@ -292,7 +300,7 @@ def estimKnitro(VAR,data,speed):
     KN_set_int_param(kc, KN_PARAM_MULTISTART, KN_MULTISTART_YES)
     KN_set_int_param(kc, KN_PARAM_MSMAXSOLVES, 100)
     if market == "SEA_SUN":
-        KN_set_int_param(kc, KN_PARAM_MSMAXSOLVES, 200) 
+        KN_set_int_param(kc, KN_PARAM_MSMAXSOLVES, 200)
     KN_set_int_param(kc, "ms_outsub", KN_MS_OUTSUB_YES)
     KN_set_int_param(kc, "outmode", KN_OUTMODE_BOTH)
     # add objective function
@@ -340,7 +348,7 @@ df["dd_dow"] = pd.to_datetime(df.ddate).dt.dayofweek
 df = df.loc[df.numObs >= 59]
 
 
-# sort data to the deadline, prep for dif in seat maps 
+# sort data to the deadline, prep for dif in seat maps
 df["ttdate" ] = -df["tdate"] + 60
 cols = ["origin", "dest", "ddate", "flightNum", "tdate"]
 df["ddate"] = df["ddate"].astype("category").cat.codes
@@ -420,7 +428,7 @@ while success == False:
     lut[idx] = np.arange(k)
     df_route["fareI"] = lut[kmeans.labels_]
     df_route["fareC"] = np.sort(kmeans.cluster_centers_[:, 0])[df_route["fareI"]]
-    cc = (np.corrcoef(df_route.fare, df_route.fareC)[0, 1])**2
+    cc = (np.corrcoef(df_route.fare, df_route.fareC)[0, 1]) ** 2
     print(cc)
     it += 1
     if cc >= .99:
@@ -436,7 +444,6 @@ for t in df_route.tdate.unique():
     pp = list(df_route.loc[df_route.tdate == t].fareI.unique())
     for p in pp:
         Pt[t, p + 1] = 1
-
 
 # This block of code creates the core estim data as well as key data summaries that enter LLN
 df_route = df_route[["seats", "difS", "tdate", "fareI", "dd_dow"]].astype("int")
@@ -471,15 +478,11 @@ allDemand_jit = jit(allDemand)
 dynEst_jit = jit(dynEst)
 logLike_jit = jit(logLike)
 
-
-
 if speed !="fast":
     gradF = jit(jacfwd(lambda x: logLike_jit(x, data)))
 elif speed == "fast":
     gradSig = jit((lambda x: gradientSig(x, data)))
     gradF = jit(grad(lambda x: logLike_jit(x, data)))
-
-
 
 solution0 = estimKnitro(VAR, data, speed)
 
@@ -487,7 +490,8 @@ df_route.to_csv(OUTPUT + market + ".csv")
 pd.DataFrame(solution0).to_csv(
     OUTPUT + market + "_params.csv",
     header = None,
-    index = None)
+    index = None
+)
 pd.DataFrame(np.array(Pt)).to_csv(
     OUTPUT + market + "_Pt.csv",
     header = None,

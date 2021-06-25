@@ -1,12 +1,11 @@
 """
-    Create SH Programs For DML Demand Paper
-    Shoe Images Project
+    Create sh programs to run robust_estim on SLURM.
 --------------------------------------------------------------------------------
 change log:
     v0.0.1  Thurs 24 Dec 2020
 -------------------------------------------------------------------------------
 notes:
-    
+    `robust_estim.py` is the same script as `robustness_multistart.py`.
 --------------------------------------------------------------------------------
 contributors:
     Tom:
@@ -19,12 +18,18 @@ contributors:
 Copyright 2020 Yale University
 """
 
-mkts = ['BIL_SEA', 'BOI_PDX', 'BZN_PDX', 'CHS_SEA', 'CMH_SEA', 'FAT_PDX', 'GEG_PDX', 'GTF_SEA', 'HLN_SEA', 'ICT_SEA', 'LIH_PDX', 'MSO_PDX', 'OKC_SEA', 'OMA_SEA', 'PDX_PSP', 'PDX_RNO', 'PDX_SBA', 'PDX_SMF', 'PDX_STS', 'SBA_SEA', 'SEA_STS', 'SEA_SUN']
-mkts2 = ['AUS_BOS', 'BOS_JAX', 'BOS_MCI', 'BOS_PDX', 'BOS_SAN', 'BOS_SEA']
+mkts = [
+    "BIL_SEA", "BOI_PDX", "BZN_PDX", "CHS_SEA", "CMH_SEA", "FAT_PDX",
+    "GEG_PDX", "GTF_SEA", "HLN_SEA", "ICT_SEA", "LIH_PDX", "MSO_PDX",
+    "OKC_SEA", "OMA_SEA", "PDX_PSP", "PDX_RNO", "PDX_SBA", "PDX_SMF",
+    "PDX_STS", "SBA_SEA", "SEA_STS", "SEA_SUN"
+]
+mkts2 = ["AUS_BOS", "BOS_JAX", "BOS_MCI", "BOS_PDX", "BOS_SAN", "BOS_SEA"]
 mkts = mkts + mkts2
+
 # outputs the shell script
 for i in mkts:
-  script = f'''#!/bin/bash
+    script = f"""#!/bin/bash
 #SBATCH --job-name={i}_robust_estim
 #SBATCH --output={i}_robust_estim.out
 #SBATCH --partition=normal
@@ -66,12 +71,10 @@ module load py-jaxlib-0.1.59-gcc-9.3.0-kqzodnr
 module load py-pyarrow-0.17.1-gcc-9.3.0-gp34oiu
 module load py-python-snappy-0.6.0-gcc-9.3.0-2xpqbto
 python /gpfs/home/kw468/airlines_jmp/scripts/robust_estim.py {i} exact
-'''
-  f = open("robustEstim"+i+".sh", "w")
-  f.write(script)
-  f.close()
-
-
+"""
+    f = open("robustEstim" + i + ".sh", "w")
+    f.write(script)
+    f.close()
 
 # outputs the shell script
 

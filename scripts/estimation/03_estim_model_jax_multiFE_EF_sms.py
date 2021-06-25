@@ -87,18 +87,17 @@ if not os.path.exists(OUTPUT):
 
 os.chdir(OUTPUT)
 
-
 # define the probability that a low type wants to buy
 # rewrite exp(a)/(1 + exp(a)) as 1/(1/exp(a) + 1) = 1/(1 + exp(-a))
 @jit
-def purchInL(beta, bL, gamma):   # p is dim(P), gam is dim(T), , beta is dim FE
+def purchInL(beta, bL, gamma): # p is dim(P), gam is dim(T), beta is dim FE
     return (1 - gamma)[:, None, None] * 1 / \
         (1 + jnp.exp(-beta[None, None, :] - bL * prices[None, :, None]))
     # returned object is T, P dimension
 
 # define the probability that a high type wants to buy
 @jit
-def purchInB(beta, bB, gamma):   # p is dim(P), gam is dim(T), beta is dim FE
+def purchInB(beta, bB, gamma): # p is dim(P), gam is dim(T), beta is dim FE
     return (gamma)[:, None, None] * 1 / \
         (1 + jnp.exp(-beta[None, None, :] - bB * prices[None, :, None]))
     # returned object is T,P dimension
@@ -149,7 +148,7 @@ def dynEst(f, ER, gamma, sig, beta):
     for t in range(1, T+1):
         # work backwards in time. In the last period, we just get last period revenues
         if t == 1:
-            # the softmax functin can be rewritten,
+            # the softmax function can be rewritten,
             # so let"s use logsum(exp) = x* + log sum (exp (x-x*))
             grp = ER[:, -t, :, :] / (sig) * Pt[-t, 1:][None, :, None]
             grp = jnp.where(grp == 0, -jnp.inf, grp)
@@ -162,8 +161,8 @@ def dynEst(f, ER, gamma, sig, beta):
             grp = (ER[:, -t, :, :] / sig + EV[-t+1, :, :, :] / sig) * \
                 Pt[-t, 1:][None, :, None]
             grp = jnp.where(grp == 0, -jnp.inf, grp)
-            V = V.at[:,-t,:].set(sig*logsumexp(grp, axis = 1) + EC*sig)
-            V = V.at[0,-t,:].set(0)
+            V = V.at[:, -t, :].set(sig * logsumexp(grp, axis = 1) + EC * sig)
+            V = V.at[0, -t, :].set(0)
         # now we need to define EV, which is int_c" V f(c"),
         # so we"ll use tril to reset array(x) as reversearray(x)
         # this allows us to calc that the Pr(Q = 1) aligns with Pr(c" = c - 1)
@@ -174,10 +173,11 @@ def dynEst(f, ER, gamma, sig, beta):
                 g = jnp.array(f[:, :, -t - 1, :, b])
                 g = g.at[r, c, :].set(g[r, r - c, :])
                 EV = EV.at[-t, :, :, b].set(
-                    jnp.sum(g * V[:, -t, b][None, :, None],axis = 1) * Pt[-t, 1:]
+                    jnp.sum(g * V[:, -t, b][None, :, None], axis = 1) * Pt[-t, 1:]
                 )
         if t != 1:
-            XX = (ER[:, -t, :, :] + EV[-t + 1, :, :, :]) / sig * Pt[-t, 1:][None, :, None]
+            XX = (ER[:, -t, :, :] + EV[-t + 1, :, :, :]) / \
+                sig * Pt[-t, 1:][None, :, None]
             XX = jnp.where(XX == 0, -jnp.inf, XX)
             CCP = CCP.at[-t, :, :, :].set(XX - logsumexp(XX, axis = 1)[:, None, :])
     return CCP
@@ -196,16 +196,19 @@ def gradientSig(VAR, data):
         ) + 1
     )
     # equivalent to jnp.array([1/(1 + jnp.exp(-g[0] + -t*g[1] - t**2*g[2])) for t in range(0,60)])
-    # range(int(min(Tdata)),int(max(Tdata)+1))])
-    muT = jnp.array([VAR[12]] * (T - 20) + [VAR[13]] * 7 + [VAR[14]] * 7 + [VAR[15]] * 6)
-    muD = jnp.append(jnp.array([1]),jnp.array(VAR[16:22]))
+    # range(int(min(Tdata)), int(max(Tdata)+1))])
+    muT = jnp.array(
+        [VAR[12]] * (T - 20) + [VAR[13]] * 7 + \
+        [VAR[14]] * 7 + [VAR[15]] * 6
+    )
+    muD = jnp.append(jnp.array([1]), jnp.array(VAR[16:22]))
     mu = muT[:, None] * muD[None, :]
     sig = VAR[-1]
     # first FE
     f0 = allDemand_jit(beta, bL, bB, gamma, mu)
     ER0 = jnp.sum(
-        f0 * jnp.array(range(qBar))[None, :, None, None, None] \
-            * prices[None, None, None, :, None],
+        f0 * jnp.array(range(qBar))[None, :, None, None, None] * \
+            prices[None, None, None, :, None],
         axis = 1
     )
     CCP0 = dynEst_jit(f0, ER0, gamma, sig + 1e-4, beta)
@@ -221,8 +224,9 @@ def logLike(VAR, data):
     bL = jnp.minimum(VAR[7], VAR[8])
     bB = jnp.maximum(VAR[7], VAR[8])
     gamma = 1 / (jnp.exp(
-        -VAR[9] - jnp.arange(0, 60) * VAR[10] - \
-            (jnp.arange(0, 60) ** 2) * VAR[11]) + 1
+            -VAR[9] - jnp.arange(0, 60) * VAR[10] - \
+                (jnp.arange(0, 60) ** 2) * VAR[11]
+        ) + 1
     )
     # equivalent to jnp.array([1/(1 + jnp.exp(-g[0] + -t*g[1] - t**2*g[2])) for t in range(0,60)])
     # range(int(min(Tdata)),int(max(Tdata)+1))])
@@ -257,7 +261,7 @@ def estimKnitro(VAR,data,speed):
     n = len(VAR)
     bndsLo = np.array([
         -10, -10, -10, -10, -10, -10, -10, -10, -10,
-        -250, -10, -.06, .1 , .1 , .1 , .1,
+        -250, -10, -.06, .1, .1, .1, .1,
         .01, .01, .01, .01, .01, .01, .02
     ])
     bndsUp = np.array([
@@ -325,7 +329,7 @@ df = pd.read_parquet(f"{INPUT}/efdata_clean.parquet")
 df["route"] = np.vectorize(determine_OD_Pair)(df["origin"], df["dest"])
 
 # sort data to the deadline, prep for dif in seat maps
-df["ttdate" ]= -df["tdate"] + 60
+df["ttdate" ] = -df["tdate"] + 60
 cols = ["origin", "dest", "ddate", "flightNum", "tdate"]
 df = df.sort_values(cols, ascending = False).reset_index(drop = True)
 
@@ -376,14 +380,14 @@ success = False
 it = 2
 while success == False:
     k = it
-    kmeans = KMeans(n_clusters=k, random_state = 0) \
+    kmeans = KMeans(n_clusters = k, random_state = 0) \
         .fit(df_route.fare.values.reshape(-1, 1))
     idx = np.argsort(kmeans.cluster_centers_.sum(axis = 1))
     lut = np.zeros_like(idx)
     lut[idx] = np.arange(k)
     df_route["fareI"] = lut[kmeans.labels_]
     df_route["fareC"] = np.sort(kmeans.cluster_centers_[:, 0])[df_route["fareI"]]
-    cc = (np.corrcoef(df_route.fare,df_route.fareC)[0, 1]) ** 2
+    cc = (np.corrcoef(df_route.fare, df_route.fareC)[0, 1]) ** 2
     print(cc)
     it += 1
     if cc >= .99:
@@ -404,7 +408,7 @@ for t in df_route.tdate.unique():
 df_route = df_route[["seats", "difS", "tdate", "fareI", "dd_dow"]].astype("int")
 # Q,S,T,P
 data = np.array(df_route.values)
-qBar = int(np.max(df_route.seats))  +1
+qBar = int(np.max(df_route.seats)) + 1
 T = len(np.unique(df_route.tdate))
 numP = len(prices)
 obs = len(df_route.tdate)
@@ -416,8 +420,6 @@ for p in range(numP):
     f = first[p + 1]
     l = last[p + 1]
     Pt[f:l, p + 1] = 1
-
-
 
 # define Euler"s constant and an initial starting value for estim
 EC = 0.5772156649
