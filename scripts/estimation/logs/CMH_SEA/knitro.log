@@ -1,0 +1,140 @@
+
+=======================================
+           Academic License
+       (NOT FOR COMMERCIAL USE)
+         Artelys Knitro 12.3.0
+=======================================
+
+Knitro presolve eliminated 0 variables and 0 constraints.
+
+algorithm:               4
+bar_maxcrossit:          3
+feastol:                 1e-08
+hessopt:                 2
+ms_enable:               1
+ms_maxsolves:            42
+ms_outsub:               1
+opttol:                  1e-08
+outlev:                  5
+outmode:                 2
+par_concurrent_evals:    0
+par_blasnumthreads:      21
+par_numthreads:          21
+
+Problem Characteristics                                 (   Presolved)
+-----------------------
+Objective goal:  Maximize
+Objective type:  general
+Number of variables:                                 23 (          23)
+    bounded below only:                               0 (           0)
+    bounded above only:                               0 (           0)
+    bounded below and above:                         23 (          23)
+    fixed:                                            0 (           0)
+    free:                                             0 (           0)
+Number of constraints:                                0 (           0)
+    linear equalities:                                0 (           0)
+    quadratic equalities:                             0 (           0)
+    gen. nonlinear equalities:                        0 (           0)
+    linear one-sided inequalities:                    0 (           0)
+    quadratic one-sided inequalities:                 0 (           0)
+    gen. nonlinear one-sided inequalities:            0 (           0)
+    linear two-sided inequalities:                    0 (           0)
+    quadratic two-sided inequalities:                 0 (           0)
+    gen. nonlinear two-sided inequalities:            0 (           0)
+Number of nonzeros in Jacobian:                       0 (           0)
+Number of nonzeros in Hessian:                        0 (         276)
+
+Multistart will generate 42 start points as follows:
+     23 variables will vary within their upper and lower bounds
+      0 variables will vary over a range of 1000
+
+Knitro parallel multistart will run with 21 threads.
+
+ Solve #  ThreadID  Status     Objective     FeasError   OptError   Real Time 
+--------  --------  ------  --------------  ----------  ---------- ----------
+       1         6    -101   -4.030140e+04   0.000e+00   3.541e-05   6306.483
+       4        16       0   -4.244659e+04   0.000e+00   3.066e-08  21397.287
+      17         0    -103   -4.030140e+04   0.000e+00   7.688e-08  22226.959
+       8         3       0   -4.030140e+04   0.000e+00   3.659e-09  27609.762
+      10         1       0   -4.030140e+04   0.000e+00   5.769e-09  27974.629
+      12        12       0   -4.030140e+04   0.000e+00   2.447e-09  31495.637
+      13         9       0   -4.030140e+04   0.000e+00   4.128e-09  33143.281
+      11        18       0   -4.030140e+04   0.000e+00   7.792e-09  35960.383
+      14         5       0   -4.030140e+04   0.000e+00   2.208e-09  35985.375
+      18        17       0   -4.030140e+04   0.000e+00   9.568e-09  36664.281
+       6        10       0   -4.030140e+04   0.000e+00   3.097e-09  37910.387
+      21        20       0   -4.030140e+04   0.000e+00   1.626e-09  39255.676
+       5        15       0   -4.030140e+04   0.000e+00   4.362e-09  39293.973
+       2        19       0   -4.030140e+04   0.000e+00   2.006e-10  39508.043
+      15        14       0   -4.030140e+04   0.000e+00   6.292e-09  40690.059
+      16         4       0   -4.030140e+04   0.000e+00   3.214e-09  40702.547
+       9         8       0   -4.030140e+04   0.000e+00   6.754e-09  41293.969
+      19         2       0   -4.030140e+04   0.000e+00   1.365e-09  43293.168
+       7        11       0   -4.030140e+04   0.000e+00   8.422e-09  45004.059
+       3         7       0   -4.030140e+04   0.000e+00   5.312e-09  45393.906
+      22         6       0   -4.030140e+04   0.000e+00   7.621e-09  45148.758
+      20        13       0   -4.030140e+04   0.000e+00   1.180e-09  57969.281
+      26         1       0   -4.030140e+04   0.000e+00   1.288e-09  30498.379
+      27        12       0   -4.030140e+04   0.000e+00   4.391e-09  28712.254
+      23        16       0   -4.030140e+04   0.000e+00   7.758e-09  42180.766
+      28         9       0   -4.030140e+04   0.000e+00   2.967e-09  32912.371
+      36        14       0   -4.030140e+04   0.000e+00   9.451e-09  26673.309
+      38         8       0   -4.030140e+04   0.000e+00   1.474e-09  26358.730
+      24         0       0   -4.030140e+04   0.000e+00   8.041e-09  45966.195
+      31        17       0   -4.030140e+04   0.000e+00   6.964e-09  32132.252
+      25         3       0   -4.030140e+04   0.000e+00   2.843e-09  42004.438
+      33        20       0   -4.030140e+04   0.000e+00   9.802e-09  30986.918
+      29        18       0   -4.030140e+04   0.000e+00   1.590e-09  34358.238
+      30         5       0   -4.030140e+04   0.000e+00   8.482e-09  36093.855
+      41         7       0   -4.030140e+04   0.000e+00   5.632e-09  27377.283
+      32        10       0   -4.030140e+04   0.000e+00   1.622e-10  35540.172
+      37         4       0   -4.030140e+04   0.000e+00   5.409e-09  33087.219
+      35        19       0   -4.030140e+04   0.000e+00   5.818e-09  35112.215
+      39         2       0   -4.030140e+04   0.000e+00   4.592e-10  31653.492
+      34        15       0   -4.030140e+04   0.000e+00   3.384e-09  35803.965
+      40        11       0   -4.030140e+04   0.000e+00   6.401e-09  30962.121
+      42         6       0   -4.030140e+04   0.000e+00   6.951e-09  24510.596
+Multistart stopping, reached ms_maxsolves limit.
+
+MULTISTART: Best locally optimal solution is returned.
+EXIT: Locally optimal solution found.
+
+Final Statistics
+----------------
+Final objective value               =  -4.03013992588477e+04
+Final feasibility error (abs / rel) =   0.00e+00 / 0.00e+00
+Final optimality error  (abs / rel) =   1.47e-09 / 1.47e-09
+# of iterations                     =       6014 
+# of CG iterations                  =        741 
+# of function evaluations           =       6478
+# of gradient evaluations           =       6056
+Total program time (secs)           =   76404.78906 (1453971.000 CPU time)
+
+Solution Vector
+---------------
+x[       0] =   3.71459537946e+00
+x[       1] =   3.31897239522e+00
+x[       2] =   3.40588056678e+00
+x[       3] =   3.84904333701e+00
+x[       4] =   3.77972031373e+00
+x[       5] =   3.29503441528e+00
+x[       6] =   3.95069541042e+00
+x[       7] =  -5.51572712957e-01
+x[       8] =  -1.28751932902e+00
+x[       9] =  -6.17486897575e+00
+x[      10] =   1.14785479143e-01
+x[      11] =   2.17693040281e-04
+x[      12] =   2.71168495495e+00
+x[      13] =   3.27810502211e+00
+x[      14] =   1.83149450598e+00
+x[      15] =   2.50102012316e+00
+x[      16] =   9.89665837104e-01
+x[      17] =   9.24719663747e-01
+x[      18] =   9.78864221896e-01
+x[      19] =   1.00629220865e+00
+x[      20] =   9.27643176617e-01
+x[      21] =   1.05373346303e+00
+x[      22] =   6.78415957180e-01
+
+===============================================================================
+
