@@ -25,7 +25,7 @@ clear
 global INPUT = "../../data"
 global OUTPUT = "../../output"
 
-log using "${OUTPUT}subReg.log", replace
+log using "${OUTPUT}/subReg.log", replace
 
 * OPEN THE MASTER FILE
 insheet using "${INPUT}/subregs.csv"
@@ -47,7 +47,7 @@ eststo m2
 reghdfe lf _t* apd*, absorb(route MY dowd dows flightnum) cluster(route MY)
 eststo m3
 
-esttab m1 m2 m3 using "${OUTPUT}subReg.tex", ///
+esttab m1 m2 m3 using "${OUTPUT}/subReg.tex", ///
 	drop(_cons) indicate("time = _t*") se r2 label replace
 
 log close
