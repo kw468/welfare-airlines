@@ -154,11 +154,6 @@ def optDynNoError(f,ER,gamma,beta):
             # the softmax functin can be rewritten, so let's use logsum(exp) = x* + log sum (exp (x-x*))
             grp         = ER[:,-t,:,:]*Pt[-t,1:][None,:,None]
             V           = V.at[:,-t,:].set( jnp.max(grp , axis = 1) )
-            #tmp         = jnp.argmax(grp , axis = 1) 
-            # FINISH THIS
-            #for q in range(qBar):
-            #    for b in range(len(beta)):
-            #        CCP = CCP.at[-t,q,tmp[q,b],b].set(1)
             tmp = jnp.zeros_like(grp)
             tmp = tmp.at[jnp.where(grp   == jnp.max(grp , axis = 1)[:,None,:] )].set(1)
             CCP = CCP.at[-t,:,:,:].set(tmp)
@@ -174,11 +169,6 @@ def optDynNoError(f,ER,gamma,beta):
                 EV              = EV.at[-t,:,:,b].set(jnp.sum(g*V[:,-t,b][None,:,None],axis=1)*Pt[-t,1:])
         if t != 1:
             XX                  = (ER[:,-t,:,:] + EV[-t+1,:,:,:])*Pt[-t,1:][None,:,None]
-            # tmp             = jnp.argmax(XX , axis = 1) 
-            # # FINISH THIS
-            # for q in range(qBar):
-            #     for b in range(len(beta)):
-            #         CCP = CCP.at[-t,q,tmp[q,b],b].set(1)
             tmp = jnp.zeros_like(XX)
             tmp = tmp.at[jnp.where(XX   == jnp.max(XX , axis = 1)[:,None,:] )].set(1)
             CCP = CCP.at[-t,:,:,:].set(tmp)
