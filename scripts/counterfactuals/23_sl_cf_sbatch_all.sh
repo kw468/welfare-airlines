@@ -1,56 +1,27 @@
-sbatch	runSLCFBIL_SEA.sh
-sleep 30
-sbatch	runSLCFBOI_PDX.sh
-sleep 30
-sbatch	runSLCFBZN_PDX.sh
-sleep 30
-sbatch	runSLCFCHS_SEA.sh
-sleep 30
-sbatch	runSLCFCMH_SEA.sh
-sleep 30
-sbatch	runSLCFFAT_PDX.sh
-sleep 30
-sbatch	runSLCFGEG_PDX.sh
-sleep 30
-sbatch	runSLCFGTF_SEA.sh
-sleep 30
-sbatch	runSLCFHLN_SEA.sh
-sleep 30
-sbatch	runSLCFICT_SEA.sh
-sleep 30
-#sbatch	runSLCFLIH_PDX.sh
-#sleep 30
-sbatch	runSLCFMSO_PDX.sh
-sleep 30
-#sbatch	runSLCFOKC_SEA.sh
-#sleep 30
-sbatch	runSLCFOMA_SEA.sh
-sleep 30
-#sbatch	runSLCFPDX_PSP.sh
-#sleep 30
-sbatch	runSLCFPDX_RNO.sh
-sleep 30
-sbatch	runSLCFPDX_SBA.sh
-sleep 30
-#sbatch	runSLCFPDX_SMF.sh
-#sleep 30
-sbatch	runSLCFPDX_STS.sh
-sleep 30
-sbatch	runSLCFSBA_SEA.sh
-sleep 30
-sbatch	runSLCFSEA_STS.sh
-sleep 30
-sbatch	runSLCFSEA_SUN.sh
-sleep 30
-#sbatch	runSLCFBOS_SEA.sh
-#sleep 30
-sbatch	runSLCFBOS_SAN.sh
-sleep 30
-#sbatch	runSLCFBOS_PDX.sh
-#sleep 30
-sbatch	runSLCFBOS_MCI.sh
-sleep 30
-sbatch	runSLCFBOS_JAX.sh
-sleep 30
-sbatch	runSLCFAUS_BOS.sh
+#!/bin/sh
+"""
+    Run the sh programs to run sl_sim_cf on SLURM.
+--------------------------------------------------------------------------------
+change log:
+    v0.0.1  Fri 25 Jun 2021
+-------------------------------------------------------------------------------
+notes:
+
+--------------------------------------------------------------------------------
+contributors:
+    Kevin:
+        name:       Kevin Williams
+        email:      kevin.williams@yale.edu
+--------------------------------------------------------------------------------
+Copyright 2021 Yale University
+"""
+
+for market in "BIL_SEA" "BOI_PDX" "BZN_PDX" "CHS_SEA" "CMH_SEA" "FAT_PDX" \
+    "GEG_PDX" "GTF_SEA" "HLN_SEA" "ICT_SEA" "MSO_PDX" "OKC_SEA" \
+    "PDX_RNO" "PDX_SBA" "PDX_STS" "SBA_SEA" "SEA_STS" "SEA_SUN" \
+    "BOS_SAN" "BOS_MCI" "BOS_JAX" "AUS_BOS"
+do
+    sbatch runSLCF${market}.sh
+    sleep 30
+done
 

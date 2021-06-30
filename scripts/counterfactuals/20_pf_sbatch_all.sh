@@ -1,56 +1,27 @@
-sbatch	runPFBIL_SEA.sh
-sleep 30
-sbatch	runPFBOI_PDX.sh
-sleep 30
-sbatch	runPFBZN_PDX.sh
-sleep 30
-sbatch	runPFCHS_SEA.sh
-sleep 30
-sbatch	runPFCMH_SEA.sh
-sleep 30
-sbatch	runPFFAT_PDX.sh
-sleep 30
-sbatch	runPFGEG_PDX.sh
-sleep 30
-sbatch	runPFGTF_SEA.sh
-sleep 30
-sbatch	runPFHLN_SEA.sh
-sleep 30
-sbatch	runPFICT_SEA.sh
-sleep 30
-#sbatch	runPFLIH_PDX.sh
-#sleep 30
-sbatch	runPFMSO_PDX.sh
-sleep 30
-#sbatch	runPFOKC_SEA.sh
-#sleep 30
-sbatch	runPFOMA_SEA.sh
-sleep 30
-#sbatch	runPFPDX_PSP.sh
-#sleep 30
-sbatch	runPFPDX_RNO.sh
-sleep 30
-sbatch	runPFPDX_SBA.sh
-sleep 30
-#sbatch	runPFPDX_SMF.sh
-#sleep 30
-sbatch	runPFPDX_STS.sh
-sleep 30
-sbatch	runPFSBA_SEA.sh
-sleep 30
-sbatch	runPFSEA_STS.sh
-sleep 30
-sbatch	runPFSEA_SUN.sh
-sleep 30
-#sbatch	runPFBOS_SEA.sh
-#sleep 30
-sbatch	runPFBOS_SAN.sh
-sleep 30
-#sbatch	runPFBOS_PDX.sh
-#sleep 30
-sbatch	runPFBOS_MCI.sh
-sleep 30
-sbatch	runPFBOS_JAX.sh
-sleep 30
-sbatch	runPFAUS_BOS.sh
+#!/bin/sh
+"""
+    Run the sh programs to run sim_pf on SLURM.
+--------------------------------------------------------------------------------
+change log:
+    v0.0.1  Fri 25 Jun 2021
+-------------------------------------------------------------------------------
+notes:
+
+--------------------------------------------------------------------------------
+contributors:
+    Kevin:
+        name:       Kevin Williams
+        email:      kevin.williams@yale.edu
+--------------------------------------------------------------------------------
+Copyright 2021 Yale University
+"""
+
+for market in "BIL_SEA" "BOI_PDX" "BZN_PDX" "CHS_SEA" "CMH_SEA" "FAT_PDX" \
+    "GEG_PDX" "GTF_SEA" "HLN_SEA" "ICT_SEA" "MSO_PDX" "OKC_SEA" \
+    "PDX_RNO" "PDX_SBA" "PDX_STS" "SBA_SEA" "SEA_STS" "SEA_SUN" \
+    "BOS_SAN" "BOS_MCI" "BOS_JAX" "AUS_BOS"
+do
+    sbatch runPF${market}.sh
+    sleep 30
+done
 
