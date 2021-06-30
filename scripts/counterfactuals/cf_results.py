@@ -1,3 +1,20 @@
+"""
+    This script reports the counterfactual results in
+    "The Welfare Effects of Dynamic Pricing:Evidence from Airline Markets"
+--------------------------------------------------------------------------------
+change log:
+    v0.0.1  Mon 14 Jun 2021
+-------------------------------------------------------------------------------
+notes: 
+--------------------------------------------------------------------------------
+contributors:
+    Kevin:
+        name:       Kevin Williams
+        email:      kevin.williams@yale.edu
+--------------------------------------------------------------------------------
+Copyright 2021 Yale University
+"""
+
 #srun --nodelist=c3 --cpus-per-task=128 --pty bash -i
 
 import numpy as np

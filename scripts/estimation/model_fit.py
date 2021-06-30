@@ -1,3 +1,19 @@
+"""
+    This script fits the model in
+    "The Welfare Effects of Dynamic Pricing:Evidence from Airline Markets"
+--------------------------------------------------------------------------------
+change log:
+    v0.0.1  Mon 14 Jun 2021
+-------------------------------------------------------------------------------
+notes: 
+--------------------------------------------------------------------------------
+contributors:
+    Kevin:
+        name:       Kevin Williams
+        email:      kevin.williams@yale.edu
+--------------------------------------------------------------------------------
+Copyright 2021 Yale University
+"""
 # this must be run in py_tf_plot
 
 from multiprocessing import Pool

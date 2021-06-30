@@ -1,3 +1,20 @@
+"""
+    This script report the results for stochastic limit counterfactual in
+    "The Welfare Effects of Dynamic Pricing:Evidence from Airline Markets"
+--------------------------------------------------------------------------------
+change log:
+    v0.0.1  Mon 14 Jun 2021
+-------------------------------------------------------------------------------
+notes: 
+--------------------------------------------------------------------------------
+contributors:
+    Kevin:
+        name:       Kevin Williams
+        email:      kevin.williams@yale.edu
+--------------------------------------------------------------------------------
+Copyright 2021 Yale University
+"""
+
 import numpy as np
 import pandas as pd
 import seaborn as sns
