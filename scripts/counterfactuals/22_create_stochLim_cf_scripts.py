@@ -5,7 +5,7 @@ change log:
     v0.0.1  Thurs 24 Dec 2020
 -------------------------------------------------------------------------------
 notes:
-
+    sl_sim_cf was renamed to stochastic_limit_counterfactual.
 --------------------------------------------------------------------------------
 contributors:
     Kevin:
