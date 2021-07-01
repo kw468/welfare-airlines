@@ -16,13 +16,16 @@ contributors:
 Copyright 2021 Yale University
 """
 
-NUM_THREADS = 21
-# adjust Jax to 64 bit floats
 from jax.config import config
+
+# adjust Jax to 64 bit floats
 config.update("jax_enable_x64", True)
 
+# number of threads to use
+NUM_THREADS = 21
+
 # define the probability that a low type wants to buy
-# rewrite exp(a)/(1 + exp(a)) as 1/(1/exp(a) + 1) = 1/(1 + exp(-a))
+# rewrite exp(a) / (1 + exp(a)) as 1 / (1 / exp(a) + 1) = 1 / (1 + exp(-a))
 @jit
 def purchInL(beta, bL, gamma): # p is dim(P), gam is dim(T), beta is dim FE
     return (1 - gamma)[:, None, None] * 1 / \
@@ -36,12 +39,14 @@ def purchInB(beta, bB, gamma): # p is dim(P), gam is dim(T), beta is dim FE
         (1 + jnp.exp(-beta[None, None, :] - bB * prices[None, :, None]))
     # returned object is T,P dimension
 
-# define, this returns a T X P matrix of probability of purchase across both consumer types
+# define, this returns a T X P matrix of probability of
+# purchase across both consumer types
 @jit
 def purchIn(beta, bB, bL, gamma):
     return purchInL(beta, bL, gamma) + purchInB(beta, bB, gamma)
 
-# define the log probability of that demand is equal to q given the parameters of the model
+# define the log probability of that demand is equal to
+# q given the parameters of the model
 # this is the log of the poisson pmf
 @jit
 def log_demandQ(beta, bL, bB, gamma, mu, q):
@@ -56,7 +61,8 @@ def log_demandQ(beta, bL, bB, gamma, mu, q):
 def demandQ(beta, bL, bB, gamma, mu, q):
     # note that this is simply
     # (mu[:, None] * purchIn(aB, bB, aL, bL, prices, gamma)) ** q * \
-    #     jnp.exp(-mu[:, None] * (purchIn(aB, bB, aL, bL, prices, gamma))) / factQ[q]
+    #     jnp.exp(-mu[:, None] * (purchIn(aB, bB, aL, bL, prices, gamma))) / \
+    #     factQ[q]
     return jnp.exp(log_demandQ(beta, bL, bB, gamma, mu, q))
 
 # fill in the matrix of all demand probabilities
@@ -86,7 +92,8 @@ def dynEst(f, ER, gamma, sig, beta):
     V = jnp.zeros((qBar, T, len(beta)))
     CCP = jnp.zeros((T, qBar, numP, len(beta)))
     for t in range(1, T+1):
-        # work backwards in time. In the last period, we just get last period revenues
+        # work backwards in time.
+        # In the last period, we just get last period revenues
         if t == 1:
             # the softmax function can be rewritten,
             # so let"s use logsum(exp) = x* + log sum (exp (x-x*))
@@ -97,7 +104,9 @@ def dynEst(f, ER, gamma, sig, beta):
             CCP = CCP.at[-t, :, :, :].set(grp - logsumexp(grp, axis = 1)[:, None, :])
             # this is rewritten from the numpy version:
             # CCP[-t, :, :] = Pt[-t, 1:][None, :] * np.exp(ER[:, -t, :] / sig) / \
-            #     np.sum(np.exp(ER[:, -t, :] * Pt[-t, 1:][None, :] / sig), axis = 1)[:,None]
+            #     np.sum(
+            #         np.exp(ER[:, -t, :] * Pt[-t, 1:][None, :] / sig), axis = 1
+            #     )[:, None]
         else:
             grp = (ER[:, -t, :, :] / sig + EV[-t+1, :, :, :] / sig) * \
                 Pt[-t, 1:][None, :, None]
@@ -138,7 +147,10 @@ def gradientSig(VAR, data):
                 (jnp.arange(0, 60) ** 2) * VAR[11]
         ) + 1
     )
-    # equivalent to jnp.array([1/(1 + jnp.exp(-g[0] + -t*g[1] - t**2*g[2])) for t in range(0,60)])
+    # equivalent to
+    # jnp.array(
+    #    [1 / (1 + jnp.exp(-g[0] + -t * g[1] - t ** 2 * g[2])) for t in range(0, 60)]
+    # )
     # range(int(min(Tdata)), int(max(Tdata)+1))])
     muT = jnp.array(
         [VAR[12]] * (T - 20) + [VAR[13]] * 7 + \
@@ -171,8 +183,11 @@ def logLike(VAR, data):
             (jnp.arange(0, 60) ** 2) * VAR[11]
         ) + 1
     )
-    # equivalent to jnp.array([1/(1 + jnp.exp(-g[0] + -t*g[1] - t**2*g[2])) for t in range(0,60)])
-    # range(int(min(Tdata)),int(max(Tdata)+1))])
+    # equivalent to 
+    # jnp.array(
+    #     [1 / (1 + jnp.exp(-g[0] + -t * g[1] - t ** 2 * g[2])) \
+    #         for t in range(0 , 60)])
+    # range(int(min(Tdata)), int(max(Tdata) + 1))])
     muT = jnp.array(
         [VAR[12]] * (T - 20) + [VAR[13]] * 7 + [VAR[14]] * 7 + [VAR[15]] * 6
     )

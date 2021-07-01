@@ -1,0 +1,140 @@
+
+Solving from new start point (number 32 of 42) <multistart>.
+
+
+=======================================
+*** NO CHECK MADE FOR LICENSE ***
+         Artelys Knitro 12.3.0
+=======================================
+
+Knitro presolve eliminated 0 variables and 0 constraints.
+
+algorithm:               4
+bar_maxcrossit:          3
+datacheck:               0
+feastol:                 1e-08
+hessopt:                 2
+maxtime_cpu:             9.98097e+07
+maxtime_real:            9.99907e+07
+opttol:                  1e-08
+outlev:                  5
+outmode:                 2
+par_concurrent_evals:    0
+The problem is identified as bound constrained only.
+Knitro changing act_qpalg from AUTO to 3.
+Knitro changing honorbnds from AUTO to -1.
+Knitro changing linesearch from AUTO to 2.
+Knitro changing linsolver from AUTO to 4.
+
+Problem Characteristics                                 (   Presolved)
+-----------------------
+Objective goal:  Maximize
+Objective type:  general
+Number of variables:                                 23 (          23)
+    bounded below only:                               0 (           0)
+    bounded above only:                               0 (           0)
+    bounded below and above:                         23 (          23)
+    fixed:                                            0 (           0)
+    free:                                             0 (           0)
+Number of constraints:                                0 (           0)
+    linear equalities:                                0 (           0)
+    quadratic equalities:                             0 (           0)
+    gen. nonlinear equalities:                        0 (           0)
+    linear one-sided inequalities:                    0 (           0)
+    quadratic one-sided inequalities:                 0 (           0)
+    gen. nonlinear one-sided inequalities:            0 (           0)
+    linear two-sided inequalities:                    0 (           0)
+    quadratic two-sided inequalities:                 0 (           0)
+    gen. nonlinear two-sided inequalities:            0 (           0)
+Number of nonzeros in Jacobian:                       0 (           0)
+Number of nonzeros in Hessian:                        0 (         276)
+
+Knitro using the Sequential Quadratic Programming (SQP) algorithm.
+
+  Iter     fCount     Objective      FeasError   OptError    ||Step||    CGits 
+--------  --------  --------------  ----------  ----------  ----------  -------
+       0         1   -4.317078e+05   0.000e+00
+       1         2   -3.417155e+05   1.110e-16   3.452e+00   3.286e+00        0
+       2         3   -3.063354e+05   0.000e+00   4.849e+01   1.392e+00        0
+       3         6   -3.020137e+05   0.000e+00   4.384e+02   4.019e-01        0
+       4         7   -2.916265e+05   0.000e+00   1.353e+00   1.621e+00        0
+       5         9   -2.910378e+05   0.000e+00   9.891e+00   1.014e+00        0
+       6        11   -2.888129e+05   0.000e+00   7.785e-01   1.024e+00        0
+       7        12   -2.830832e+05   0.000e+00   6.104e-01   6.968e-01        0
+       8        13   -2.810616e+05   0.000e+00   9.032e-01   5.068e-01        0
+       9        14   -2.799663e+05   0.000e+00   2.637e-01   3.891e-01        0
+      10        15   -2.794822e+05   0.000e+00   2.890e-01   3.324e-01        0
+      11        16   -2.792663e+05   0.000e+00   3.481e-01   2.357e-01        0
+      12        17   -2.791416e+05   0.000e+00   3.603e-01   1.758e-01        0
+      13        18   -2.790452e+05   0.000e+00   5.906e-02   1.643e-01        0
+      14        19   -2.789654e+05   0.000e+00   1.817e-01   1.846e-01        0
+      15        20   -2.789287e+05   0.000e+00   2.429e-01   1.175e-01        0
+      16        21   -2.789143e+05   0.000e+00   1.364e-01   6.969e-02        0
+      17        22   -2.789091e+05   0.000e+00   5.046e-02   3.580e-02        0
+      18        23   -2.789061e+05   0.000e+00   2.178e-02   3.129e-02        0
+      19        24   -2.789051e+05   0.000e+00   4.057e-02   1.572e-02        0
+      20        25   -2.789046e+05   0.000e+00   3.145e-02   8.720e-03        0
+      21        26   -2.789041e+05   0.000e+00   1.530e-02   1.114e-02        0
+      22        27   -2.789037e+05   0.000e+00   1.764e-03   1.389e-02        0
+      23        28   -2.789035e+05   0.000e+00   1.831e-03   9.832e-03        0
+      24        29   -2.789033e+05   0.000e+00   1.080e-03   5.784e-03        0
+      25        30   -2.789033e+05   0.000e+00   2.581e-03   4.766e-03        0
+      26        31   -2.789032e+05   0.000e+00   2.657e-03   3.980e-03        0
+      27        32   -2.789032e+05   0.000e+00   1.138e-03   1.765e-03        0
+      28        33   -2.789032e+05   0.000e+00   1.670e-04   5.867e-04        0
+      29        34   -2.789032e+05   0.000e+00   3.117e-04   4.602e-04        0
+      30        35   -2.789032e+05   0.000e+00   5.208e-04   6.863e-04        0
+      31        36   -2.789032e+05   0.000e+00   3.486e-04   6.168e-04        0
+      32        37   -2.789032e+05   0.000e+00   6.059e-05   3.950e-04        0
+      33        38   -2.789032e+05   0.000e+00   6.944e-05   1.951e-04        0
+      34        39   -2.789032e+05   0.000e+00   6.145e-05   1.154e-04        0
+      35        40   -2.789032e+05   0.000e+00   1.219e-05   7.113e-05        0
+      36        41   -2.789032e+05   0.000e+00   4.177e-05   5.671e-05        0
+      37        42   -2.789032e+05   0.000e+00   4.692e-05   4.271e-05        0
+      38        43   -2.789032e+05   0.000e+00   2.368e-05   2.571e-05        0
+      39        44   -2.789032e+05   0.000e+00   6.664e-06   9.219e-06        0
+      40        45   -2.789032e+05   0.000e+00   1.302e-06   4.730e-06        0
+      41        46   -2.789032e+05   0.000e+00   1.825e-07   1.389e-06        0
+
+EXIT: Locally optimal solution found.
+
+Final Statistics
+----------------
+Final objective value               =  -2.78903225413517e+05
+Final feasibility error (abs / rel) =   0.00e+00 / 0.00e+00
+Final optimality error  (abs / rel) =   1.82e-07 / 4.01e-09
+# of iterations                     =         41 
+# of CG iterations                  =          0 
+# of function evaluations           =         46
+# of gradient evaluations           =         42
+Total program time (secs)           =    3284.27148 ( 68710.258 CPU time)
+Time spent in evaluations (secs)    =    3210.31348
+
+Solution Vector
+---------------
+x[       0] =   2.96339884599e+00
+x[       1] =   2.39543804148e+00
+x[       2] =   2.57367994851e+00
+x[       3] =   3.15916339935e+00
+x[       4] =   3.29327849819e+00
+x[       5] =   2.03739016550e+00
+x[       6] =   3.29644093490e+00
+x[       7] =  -1.63378734114e+00
+x[       8] =  -2.24725080199e+00
+x[       9] =  -8.24893567183e+00
+x[      10] =   1.78733226631e-01
+x[      11] =   5.20231972992e-04
+x[      12] =   1.02080109447e+00
+x[      13] =   1.55661085102e+00
+x[      14] =   1.44845715195e+00
+x[      15] =   9.72436336546e-01
+x[      16] =   1.01886006862e+00
+x[      17] =   1.04392072468e+00
+x[      18] =   9.97649417205e-01
+x[      19] =   9.01888500546e-01
+x[      20] =   9.96617505364e-01
+x[      21] =   7.90451391404e-01
+x[      22] =   1.40530148677e-01
+
+===============================================================================
+
