@@ -40,8 +40,8 @@ from estim_markets import *
 from plot_setup import *
 from jax.config import config
 
-INPUT = "../../data"
-OUTPUT = "../../output"
+INPUT = "../../estimation/"
+OUTPUT = "../../output/"
 
 os.chdir(INPUT)
 
@@ -156,7 +156,7 @@ def dynEst(f, ER, gamma, sig, beta, Pt, qBar, prices):
 def process(market):
     np.seterr(over = "ignore")
     np.seterr(under = "ignore")
-    pathIn = INPUT + "estimation/" + market + "/"
+    pathIn = INPUT + market + "/"
     df_route = pd.read_csv(pathIn + market + ".csv", index_col = 0)
     df_route_pt = pd.read_csv(pathIn + market + "_Pt.csv", header = None)
     prices = jnp.array(np.genfromtxt(pathIn + market + "_prices.csv"))

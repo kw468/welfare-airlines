@@ -31,7 +31,7 @@ from matplotlib.lines import Line2D
 import os
 from estim_markets import *
 
-INPUT = "../../data/estimation/"
+INPUT = "../../estimation/"
 OUTPUT = "../../output/"
 
 # -------------------------------------------------------------------------------

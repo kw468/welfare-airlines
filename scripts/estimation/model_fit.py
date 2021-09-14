@@ -35,11 +35,11 @@ import random
 import matplotlib.pyplot as plt
 import seaborn as sns
 import os
-from plot_setup impot *
+from plot_setup import *
 from estim_markets import *
 
-INPUT = "../../data"
-OUTPUT = "../../output"
+INPUT = "../../estimation/"
+OUTPUT = "../../output/"
 
 EC = 0.5772156649
 T  = 60
@@ -148,7 +148,7 @@ def dynEst(f, ER, gamma, sig, beta, Pt, qBar, prices):
 def process(market):
     np.seterr(over = "ignore")
     np.seterr(under = "ignore")
-    pathIn = INPUT + "estimation/" + market + "/"
+    pathIn = INPUT + market + "/"
     df_route = pd.read_csv(pathIn + market + ".csv", index_col = 0)
     df_route_pt = pd.read_csv(pathIn + market + "_Pt.csv", header = None)
     prices = jnp.array(np.genfromtxt(pathIn + market + "_prices.csv"))
@@ -348,7 +348,7 @@ plt.close()
 
 df["dif"] = df.prices_actual - df.prices_sim_Pt
 df.groupby("tdate").dif.mean()
-tdate
+# tdate
 # 0    -11.359852
 # 1    -11.391304
 # 2    -11.476550

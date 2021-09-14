@@ -25,7 +25,7 @@ from estim_markets import *
 # --------------------------------------------------------------------------------
 # Set path for data and logs
 # --------------------------------------------------------------------------------
-INPUT = "../../data/"
+INPUT = "../../estimation/"
 
 os.chdir(INPUT)
 
@@ -33,7 +33,7 @@ X = []
 for m in mkts:
     print(m)
     tmp = pd.read_parquet(
-        INPUT + "estimation/" + m + "/" + \
+        INPUT + m + "/" + \
             m + "stochLim_counterfactuals.parquet"
     )
     tmp = tmp.loc[tmp.initC != 0]
@@ -43,7 +43,7 @@ for m in mkts:
     thres = np.argmax((np.abs(pctchange) < .005) & (pctchange > 0))
     if thres == 0:
         thres = len(pctchange)
-    data = pd.read_csv(INPUT + "estimation/" + m + "/" + m + ".csv")
+    data = pd.read_csv(INPUT + m + "/" + m + ".csv")
     data = data.loc[data.tdate == 0]
     X.extend([(data.seats > thres).values])
 

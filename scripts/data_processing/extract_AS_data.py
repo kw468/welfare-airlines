@@ -106,7 +106,7 @@ def extractSeatsRemain(jsonData):
 
 # File records the search data
 def searchDate(fname):
-    date = re.split("/", fname)[6]
+    date = fname.split("_utc")[0].split("/")[-1]
     return re.split("-|\_", date)[0:3]
 
 # File records the route
@@ -156,13 +156,17 @@ def determineSeatCount(d):
 
 # Glob all files and process them, output data frame
 def processASData():
-    files = glob.glob(f"{pathMain}/*/alaskaair/*.json")
+    files = glob.glob(f"{INPUT}/*/alaskaair/*.json")
+    assert len(files) > 0, f"""
+        Did not find any JSON files in {INPUT}/*/alaskaair.
+        Please make sure to unzip the files.
+    """
+
     
     with mp.Pool(NUM_PROCESSES) as p:
         df = p.map(processASFile, files)
         df = [y for x in df for y in x]
         df = pd.DataFrame(df)
-        p.join()
     
     df["flightNum"] = df[0].astype(str)
     df["ddate"] = pd.to_datetime(df[7] + df[8] + df[9], format = "%Y%m%d")
@@ -208,13 +212,17 @@ def processBCDFile(fname):
 
 # Process BCD bucket file; dictionary buckets and fill in bucket availability
 def processBuckets():
-    files = glob.glob(f"{pathMain}/*/bcdtraval/*.json")
+    files = glob.glob(f"{INPUT}/*/bcdtraval/*.json")
+    assert len(files) > 0, f"""
+        Did not find any JSON files in {INPUT}/*/bcdtraval.
+        Please make sure to unzip the files.
+    """
+
     with mp.Pool(NUM_PROCESSES) as p:
         df = p.map(processBCDFile,files)
         df = [y for x in df for y in x]
         df = pd.DataFrame(df)
-        p.join()
-    
+
     dftemp = pd.DataFrame(
         df[10].apply(lambda x: dict(z.replace(" ", "").split("-") for z in x)) \
             .values.tolist()
@@ -248,14 +256,14 @@ def processBuckets():
 
 bdf = processBuckets()
 df = processASData()
+ 
+df.to_parquet(f"{OUTPUT}/as_raw.parquet")
+bdf.to_parquet(f"{OUTPUT}/bcd_raw.parquet")
 
-df.to_parquet(f"{path}/as_raw.parquet")
-bdf.to_parquet(f"{path}/bcd_raw.parquet")
-
-df = pd.read_parquet(f"{path}/as_raw.parquet")
+df = pd.read_parquet(f"{INPUT}/as_raw.parquet")
 df.shape
 # (4814609, 17)
-bdf = pd.read_parquet(f"{path}/bcd_raw.parquet")
+bdf = pd.read_parquet(f"{INPUT}/bcd_raw.parquet")
 bdf.shape
 # (894621, 34)
 
@@ -463,5 +471,5 @@ df = df[[
     "fn","carrier", "capY", "capF", "sY", "sF", "lf"
 ]]
 
-df.to_parquet(f"{path}/asdata_clean_final.parquet")
-dfC.to_parquet(f"{path}/asdata_cleanCon_final.parquet")
+df.to_parquet(f"{OUTPUT}/asdata_clean.parquet")
+dfC.to_parquet(f"{OUTPUT}/asdata_cleanCon.parquet")
