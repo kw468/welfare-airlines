@@ -32,7 +32,7 @@ import numpy as np
 import os
 from estim_markets import *
 
-INPUT = "../../data/"
+INPUT = "../../estimation/"
 OUTPUT = "../../output/"
 
 # --------------------------------------------------------------------------------
@@ -72,8 +72,8 @@ def stars(a,b):
 
 
 def gatherMarketTable(market):
-    pathIn = INPUT + "estimation/" + market + "/"
-    pathSE = INPUT + "estimation/" + market + "/se/"
+    pathIn = INPUT + market + "/"
+    pathSE = INPUT + market + "/se/"
     df_route = pd.read_csv(pathIn + market + ".csv", index_col = 0)
     df_route_pt = pd.read_csv(pathIn + market + "_Pt.csv", header = None)
     prices = np.array(np.genfromtxt(pathIn + market + "_prices.csv"))
@@ -192,8 +192,8 @@ writeTable(chunks[1],table2, "2")
 writeTable(chunks[2],table3, "3")
 
 def createDF(market):
-    pathIn = INPUT + "estimation/" + market + "/"
-    pathSE = INPUT + "estimation/" + market + "/se/"
+    pathIn = INPUT + + market + "/"
+    pathSE = INPUT + market + "/se/"
     df_route = pd.read_csv(pathIn + market + ".csv", index_col=0)
     df_route_pt = pd.read_csv(pathIn + market + "_Pt.csv", header = None)
     prices = np.array(np.genfromtxt(pathIn + market + "_prices.csv"))

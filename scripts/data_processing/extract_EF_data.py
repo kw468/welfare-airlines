@@ -110,8 +110,8 @@ dfIndex.drop(columns = "maxT", inplace = True)
 dfIndex.shape
 #(205670, 7)
 
-tmp = dfIndex.loc[dfIndex["ind"].notnull() == True] \ 
-    .groupby(cols).tdate.min().reset_index(drop = False)
+tmp = (dfIndex.loc[dfIndex["ind"].notnull() == True]
+    .groupby(cols).tdate.min().reset_index(drop = False))
 tmp.rename(columns = {"tdate" : "minT"}, inplace = True)
 dfIndex = dfIndex.merge(tmp, on = cols, how = "left")
 

@@ -81,9 +81,9 @@ os.environ["CUDA_VISIBLE_DEVICES"] = str(gpu)
 # Set path for data and logs
 # --------------------------------------------------------------------------------
 INPUT = "../../data"
-OUTPUT  = INPUT + "estimation/" + market + "/"
+OUTPUT  = "../../estimation/" + market + "/"
 LOG_PATH = "logs/" + market + "/"
-for path in [LOG_PATH, OUTPUT]
+for path in [LOG_PATH, OUTPUT]:
     if not os.path.exists(path):
         os.makedirs(path)
 
@@ -237,9 +237,9 @@ for t in df_route.tdate.unique():
     pp = list(df_route.loc[df_route.tdate == t].fareI.unique())
     for p in pp:
         Pt[t, p + 1] = 1
+df_route = df_route[["seats", "difS", "tdate", "fareI", "dd_dow"]].astype("int")
 
 # This block of code creates the core estim data as well as key data summaries that enter LLN
-df_route = df_route[["seats", "difS", "tdate", "fareI", "dd_dow"]].astype("int")
 # Q,S,T,P
 data = np.array(df_route.values)
 qBar = int(np.max(df_route.seats)) + 1

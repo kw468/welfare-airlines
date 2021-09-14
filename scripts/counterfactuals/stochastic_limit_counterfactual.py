@@ -70,7 +70,7 @@ market = sys.argv[1] #"SEA_SUN"
 # --------------------------------------------------------------------------------
 # Set path for data and logs
 # --------------------------------------------------------------------------------
-INPUT = "../../data/"
+INPUT = "../../estimation/"
 OUTPUT = "../../output/"
 
 
@@ -528,8 +528,8 @@ def create_stochLimit_plot(df, a):
 
 if __name__ == "__main__":
     truncate = False
-    pathIn = INPUT + "estimation/" + market + "/"
-    pathOut = INPUT + "estimation/" + market + "/"
+    pathIn = INPUT + market + "/"
+    pathOut = INPUT + market + "/"
     df_route = pd.read_csv(pathIn + market + ".csv", index_col = 0)
     df_route_pt = pd.read_csv(pathIn + market + "_Pt.csv", header = None)
     prices = jnp.array(np.genfromtxt(pathIn + market + "_prices.csv"))

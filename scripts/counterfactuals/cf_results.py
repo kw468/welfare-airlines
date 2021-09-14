@@ -30,7 +30,7 @@ CSFONT = {"fontname": FONT, "fontsize": FONT_SIZE - 2}
 # --------------------------------------------------------------------------------
 # Set path for data and logs
 # --------------------------------------------------------------------------------
-INTPUT = "../../data/"
+INTPUT = "../../estimation/"
 OUTPUT = "../../output/"
 
 os.chdir(INTPUT)
@@ -38,7 +38,7 @@ os.chdir(INTPUT)
 df = pd.DataFrame()
 for m in mkts:
     print(m)
-    df = df.append(pd.read_parquet(INTPUT  + "estimation/" + m + "/" + m + "_counterfactuals.parquet"))
+    df = df.append(pd.read_parquet(INTPUT  + m + "/" + m + "_counterfactuals.parquet"))
 
 df["difD"] = df.groupby(["market", "fl"]).priceD.diff()
 df["difS"] = df.groupby(["market", "fl"]).priceS.diff()

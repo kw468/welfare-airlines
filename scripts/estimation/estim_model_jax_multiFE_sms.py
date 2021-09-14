@@ -81,9 +81,9 @@ os.environ["CUDA_VISIBLE_DEVICES"] = str(gpu)
 # Set path for data and logs
 # --------------------------------------------------------------------------------
 INPUT = "../../data"
-OUTPUT  = INPUT + "estimation/" + market + "/"
+OUTPUT  = "../../estimation/" + market + "/"
 LOG_PATH = "logs/" + market + "/"
-for path in [LOG_PATH, OUTPUT]
+for path in [LOG_PATH, OUTPUT]:
     if not os.path.exists(path):
         os.makedirs(path)
 

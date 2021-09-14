@@ -40,7 +40,7 @@ INPUT = "../../data"
 os.chdir(INPUT)
 
 
-routeDirs = glob.glob(INPUT + "/estimation/*_*")
+routeDirs = glob.glob("../../estimation/*_*")
 routes = [re.split("/", f)[-1] for f in routeDirs]
 
 routes = [r for r in routes if r in mkts]
@@ -57,7 +57,7 @@ T = 60
 
 
 def processRoute(num):
-	VAR = np.genfromtxt(INPUT + "/estimation/" + routes[num] + "/robust_estim/" + paramFiles[num])
+	VAR = np.genfromtxt("../../estimation/" + routes[num] + "/robust_estim/" + paramFiles[num])
 	beta = np.array(VAR[0:7])
 	bL = np.minimum(VAR[7], VAR[8])
 	bB = np.maximum(VAR[7], VAR[8])
@@ -96,7 +96,7 @@ def determine_OD_Pair(D,O):
 Y = []
 for it in range(len(routes)):
 	lenn = pd.read_csv(
-		INPUT + "/estimation/" + routes[it] + "/" + priceFiles[it]
+		"../../estimation/" + routes[it] + "/" + priceFiles[it]
 	).shape[0]
 	Y.extend([lenn])
 

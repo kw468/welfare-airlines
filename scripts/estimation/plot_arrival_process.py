@@ -32,7 +32,7 @@ import os
 from estim_markets import *
 from plot_setup import *
 
-INPUT = "../../data/estimation/"
+INPUT = "../../estimation/"
 OUTPUT = "../../output/"
 
 # -------------------------------------------------------------------------------
